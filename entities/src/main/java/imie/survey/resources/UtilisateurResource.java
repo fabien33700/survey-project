@@ -3,7 +3,7 @@ package imie.survey.resources;
 /**
  * Utilisateur DTO
  */
-public class Utilisateur {
+public class UtilisateurResource {
 	
 	private Long id;
 
@@ -11,11 +11,11 @@ public class Utilisateur {
 
 	private String hashPass;
 
-	private Role role;
+	private RoleResource role;
 
 	private Integer age;
 
-	public Utilisateur() {}
+	public UtilisateurResource() {}
 
 	public Long getId() {
 		return id;
@@ -41,11 +41,11 @@ public class Utilisateur {
 		this.hashPass = hashPass;
 	}
 
-	public Role getRole() {
+	public RoleResource getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(RoleResource role) {
 		this.role = role;
 	}
 

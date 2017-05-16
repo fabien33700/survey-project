@@ -3,13 +3,13 @@ package imie.survey.resources;
 /**
  * Role DTO
  */
-public class Role {
+public class RoleResource {
 	
 	private Long id;
 	
 	private String nom;
 
-	public Role() {}
+	public RoleResource() {}
 
 	public Long getId() {
 		return id;

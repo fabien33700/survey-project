@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Sondage DTO
  */
-public class Sondage {
+public class SondageResource {
 	
 	private Long id;
 	
@@ -15,10 +15,12 @@ public class Sondage {
 	private LocalDate dateDebut;
 	
 	private LocalDate dateFin;
-
-	private List<PropositionReponse> propositionsReponse;
 	
-	public Sondage() {}
+	private UtilisateurResource auteur;
+
+	private List<PropositionReponseResource> propositionsReponse;
+	
+	public SondageResource() {}
 
 	public String getNom() {
 		return nom;
@@ -27,12 +29,13 @@ public class Sondage {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
-	public List<PropositionReponse> getPropositionsReponse() {
+
+
+	public List<PropositionReponseResource> getPropositionsReponse() {
 		return propositionsReponse;
 	}
 
-	public void setPropositionsReponse(List<PropositionReponse> propositionsReponse) {
+	public void setPropositionsReponse(List<PropositionReponseResource> propositionsReponse) {
 		this.propositionsReponse = propositionsReponse;
 	}
 
@@ -58,5 +61,13 @@ public class Sondage {
 
 	public void setId(Long idSondage) {
 		this.id = idSondage;
+	}
+
+	public UtilisateurResource getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(UtilisateurResource auteur) {
+		this.auteur = auteur;
 	}
 }

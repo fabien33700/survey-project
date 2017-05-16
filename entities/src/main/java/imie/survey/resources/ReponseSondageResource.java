@@ -7,19 +7,19 @@ import java.util.List;
  * Reponse Sondage DTO
  *
  */
-public class ReponseSondage {
+public class ReponseSondageResource {
 	
 	private Long id;
 	
-	private Sondage sondage;
+	private SondageResource sondage;
 	
-	private Utilisateur utilisateur;
+	private UtilisateurResource utilisateur;
 	
-	private List<PropositionReponse> reponses;
+	private List<PropositionReponseResource> reponses;
 	
 	private LocalDate dateReponse;
 
-	public ReponseSondage() {}
+	public ReponseSondageResource() {}
 
 	public Long getId() {
 		return id;
@@ -29,27 +29,27 @@ public class ReponseSondage {
 		this.id = id;
 	}
 
-	public Sondage getSondage() {
+	public SondageResource getSondage() {
 		return sondage;
 	}
 
-	public void setSondage(Sondage sondage) {
+	public void setSondage(SondageResource sondage) {
 		this.sondage = sondage;
 	}
 
-	public Utilisateur getUtilisateur() {
+	public UtilisateurResource getUtilisateur() {
 		return utilisateur;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
+	public void setUtilisateur(UtilisateurResource utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 
-	public List<PropositionReponse> getReponses() {
+	public List<PropositionReponseResource> getReponses() {
 		return reponses;
 	}
 
-	public void setReponses(List<PropositionReponse> reponses) {
+	public void setReponses(List<PropositionReponseResource> reponses) {
 		this.reponses = reponses;
 	}
 

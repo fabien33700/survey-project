@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +32,9 @@ public class Sondage {
 	
 	@Column(name="date_fin")
 	private LocalDate dateFin;
+	
+	@ManyToOne
+	private Utilisateur auteur;
 	
 	@OneToMany(mappedBy="sondage")
 	private List<PropositionReponse> propositionsReponse;
@@ -76,6 +80,16 @@ public class Sondage {
 	public void setId(Long idSondage) {
 		this.id = idSondage;
 	}
+
+	public Utilisateur getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(Utilisateur auteur) {
+		this.auteur = auteur;
+	}
+	
+	
 	
 	
 	

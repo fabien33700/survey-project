@@ -4,15 +4,15 @@ package imie.survey.resources;
  * Proposition Reponse DTO
  *
  */
-public class PropositionReponse {
+public class PropositionReponseResource {
 	
 	private Long id;
 	
 	private String valeur;
 	
-	private Sondage sondage;
+	private SondageResource sondage;
 	
-	public PropositionReponse() {}
+	public PropositionReponseResource() {}
 
 	public String getValeur() {
 		return valeur;
@@ -30,15 +30,12 @@ public class PropositionReponse {
 		this.id = id;
 	}
 
-	public Sondage getSondage() {
+	public SondageResource getSondage() {
 		return sondage;
 	}
 
-	public void setSondage(Sondage sondage) {
+	public void setSondage(SondageResource sondage) {
 		this.sondage = sondage;
 	}
-	
-	
-	
 	
 }
