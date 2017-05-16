@@ -1,12 +1,12 @@
-package imie.surveyproject.services;
+package imie.survey;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServicesApplication {
+public class SurveyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServicesApplication.class, args);
+		SpringApplication.run(SurveyApplication.class, args);
 	}
 }
