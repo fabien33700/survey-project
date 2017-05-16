@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "vue": "^2.2.6",
-    "vue-router": "^2.3.1"
+    "vue-router": "^2.3.1",
+    "vertx3-eventbus-client": "3.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
