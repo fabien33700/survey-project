@@ -3,6 +3,7 @@ package imie.survey.data;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +37,19 @@ public class Sondage {
 	@ManyToOne
 	private Utilisateur auteur;
 	
-	@OneToMany(mappedBy="sondage")
+	//@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="sondage", cascade = CascadeType.PERSIST)
 	private List<PropositionReponse> propositionsReponse;
 
 	public Sondage() {}
+	
+	public Sondage(String nom, LocalDate dateDebut, LocalDate dateFin, Utilisateur auteur) {
+		this.nom = nom;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.auteur = auteur;
+	}
+
 
 	public String getNom() {
 		return nom;
@@ -88,11 +98,4 @@ public class Sondage {
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
 	}
-	
-	
-	
-	
-	
-	
-
 }

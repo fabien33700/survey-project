@@ -34,6 +34,17 @@ public class ReponseSondage {
 	private LocalDate dateReponse;
 	
 	public ReponseSondage() {}
+	
+	
+
+	public ReponseSondage(Long id, Sondage sondage, Utilisateur utilisateur, List<PropositionReponse> reponses,
+			LocalDate dateReponse) {
+		this.id = id;
+		this.sondage = sondage;
+		this.utilisateur = utilisateur;
+		this.reponses = reponses;
+		this.dateReponse = dateReponse;
+	}
 
 	public Long getId() {
 		return id;

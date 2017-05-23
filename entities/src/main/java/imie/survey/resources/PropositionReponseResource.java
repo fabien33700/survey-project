@@ -36,6 +36,5 @@ public class PropositionReponseResource {
 
 	public void setSondage(SondageResource sondage) {
 		this.sondage = sondage;
-	}
-	
+	}	
 }

@@ -1,5 +1,9 @@
 package imie.survey.resources;
 
+import java.util.List;
+
+import imie.survey.data.Sondage;
+
 /**
  * Utilisateur DTO
  */
@@ -14,6 +18,8 @@ public class UtilisateurResource {
 	private RoleResource role;
 
 	private Integer age;
+	
+	private List<SondageResource> sondages;
 
 	public UtilisateurResource() {}
 
@@ -55,6 +61,14 @@ public class UtilisateurResource {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public List<SondageResource> getSondages() {
+		return sondages;
+	}
+
+	public void setSondages(List<SondageResource> sondages) {
+		this.sondages = sondages;
 	}
 
 }

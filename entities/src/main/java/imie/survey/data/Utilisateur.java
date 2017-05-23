@@ -42,6 +42,15 @@ public class Utilisateur implements UserDetails {
 	private List<Sondage> sondages;
 
 	public Utilisateur() {}
+	
+	public Utilisateur(Long id, String pseudo, String hashPass, Role role, Integer age, List<Sondage> sondages) {
+		this.id = id;
+		this.pseudo = pseudo;
+		this.hashPass = hashPass;
+		this.role = role;
+		this.age = age;
+		this.sondages = sondages;
+	}
 
 	public Long getId() {
 		return id;
@@ -82,6 +91,14 @@ public class Utilisateur implements UserDetails {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	
+	public List<Sondage> getSondages() {
+		return sondages;
+	}
+
+	public void setSondages(List<Sondage> sondages) {
+		this.sondages = sondages;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -117,5 +134,4 @@ public class Utilisateur implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
 }

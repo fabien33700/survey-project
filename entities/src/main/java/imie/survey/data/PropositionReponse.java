@@ -28,6 +28,11 @@ public class PropositionReponse {
 	}
 	
 	public PropositionReponse() {}
+	
+	public PropositionReponse(String valeur, Sondage sondage) {
+		this.valeur = valeur;
+		this.sondage = sondage;
+	}
 
 	public void setValeur(String valeur) {
 		this.valeur = valeur;
