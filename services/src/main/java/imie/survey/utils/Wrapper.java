@@ -58,10 +58,6 @@ public class Wrapper {
 	 * @param sondage
 	 */
 	private static void setPropositionsReponseSondage(Sondage sondage) {
-		
 		sondage.getPropositionsReponse().stream().forEach(prop -> prop.setSondage(sondage));
 	}
-	
-	
-
 }

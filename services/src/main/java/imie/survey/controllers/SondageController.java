@@ -57,6 +57,7 @@ public class SondageController {
 	@RequestMapping(method = RequestMethod.GET)
     public List<SondageResource> allSurveys() {
 		List<Sondage> sondages = sondageService.getAllSondages();
+		
 		return sondages.stream()
 					   .map(wrapper::convertSondageToDto)
 					   .collect(Collectors.toList());
@@ -75,7 +76,6 @@ public class SondageController {
 		
 		// Validation de l'utilisateur
 		validator.validateUser(sondageRes.getAuteur().getId());
-		
 		Sondage sondage = wrapper.convertSondageToEntity(sondageRes);
 
 		sondageRepository.save(sondage);
@@ -85,7 +85,6 @@ public class SondageController {
 				.buildAndExpand(sondage.getId()).toUri();
 		
 		return ResponseEntity.created(location).build();
-
 	}
 	
 	/**

@@ -11,9 +11,11 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "axios": "^0.16.1",
+    "bootstrap-vue": "^0.16.1",
+    "vertx3-eventbus-client": "3.4.1",
     "vue": "^2.2.6",
-    "vue-router": "^2.3.1",
-    "vertx3-eventbus-client": "3.4.1"
+    "vue-router": "^2.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

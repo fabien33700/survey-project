@@ -3,11 +3,17 @@ package imie.survey.resources;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import imie.survey.customSerializer.SondageSerializer;
 import imie.survey.data.PropositionReponse;
+import imie.survey.data.Utilisateur;
 
 /**
  * Sondage DTO
  */
+@JsonSerialize(using = SondageSerializer.class)
 public class SondageResource {
 	
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -20,9 +26,10 @@ public class SondageResource {
 	
 	private String dateFin;
 	
-	private UtilisateurResource auteur;
+	private Utilisateur auteur;
+	
+	private String question;
 
-	//private List<String> propositionsReponse;
 	private List<PropositionReponse> propositionsReponse;
 	
 	public SondageResource() {}
@@ -34,16 +41,6 @@ public class SondageResource {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-	
-
-//	public List<String> getPropositionsReponse() {
-//		return propositionsReponse;
-//	}
-//
-//	public void setPropositionsReponse(List<String> propositionsReponse) {
-//		this.propositionsReponse = propositionsReponse;
-//	}
     
     public List<PropositionReponse> getPropositionsReponse() {
 		return propositionsReponse;
@@ -51,6 +48,14 @@ public class SondageResource {
 
 	public void setPropositionsReponse(List<PropositionReponse> propositionsReponse) {
 		this.propositionsReponse = propositionsReponse;
+	}
+
+	public Utilisateur getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(Utilisateur auteur) {
+		this.auteur = auteur;
 	}
 
 	public String getDateDebut() {
@@ -69,14 +74,6 @@ public class SondageResource {
 		this.dateFin = dateFin;
 	}
 
-	public UtilisateurResource getAuteur() {
-		return auteur;
-	}
-
-	public void setAuteur(UtilisateurResource auteur) {
-		this.auteur = auteur;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -85,6 +82,14 @@ public class SondageResource {
 		this.id = id;
 	}
 	
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
 	public LocalDate getDateDebutConverted() {
 		return convertDateFromStr(this.dateDebut);
     }
