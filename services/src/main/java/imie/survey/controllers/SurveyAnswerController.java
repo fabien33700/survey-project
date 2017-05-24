@@ -1,24 +1,21 @@
 package imie.survey.controllers;
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import org.springframework.web.bind.annotation.RestController;
 import imie.survey.data.ReponseSondage;
-import imie.survey.data.Sondage;
 import imie.survey.resources.ReponseSondageResource;
-import imie.survey.resources.SondageResource;
 import imie.survey.services.SurveyAnswerService;
 import imie.survey.utils.Validator;
+import imie.survey.utils.Wrapper;
 
-@Controller
+@RestController
+@RequestMapping("api/surveysanswers")
 public class SurveyAnswerController {
 	
 	@Autowired
@@ -44,15 +41,11 @@ public class SurveyAnswerController {
 		// Validation de l'utilisateur
 		validator.validateUser(reponseSondageRes.getUtilisateur().getId());
 		
-		ReponseSondage sondage = wrapper.convertSondageToEntity(sondageRes);
-
-		sondageRepository.save(sondage);
+		ReponseSondage sondageReponse = wrapper.convertSurveyAnswerToEntity(reponseSondageRes);
 		
-		URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(sondage.getId()).toUri();
+		surveyAnswerService.saveSuveyAnswer(sondageReponse);
 		
-		return ResponseEntity.created(location).build();
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 }

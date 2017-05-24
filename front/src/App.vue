@@ -3,7 +3,7 @@
     <!-- Nav Bar  -->
     <b-navbar toggleable type="inverse" variant="success" class="no-margin">
       <b-nav-toggle target="nav_collapse"></b-nav-toggle>
-      <b-link class="navbar-brand" to="#">
+      <b-link class="navbar-brand" to="/">
         <span>BootstrapVue</span>
       </b-link>
       <b-collapse is-nav id="nav_collapse">
@@ -34,14 +34,15 @@
 
     <router-view></router-view>
     <!-- <survey-modal></survey-modal> -->
+    <new-survey></new-survey>
   </div>
 </template>
 
 <script>
-// import SurveyModal from './components/SurveyModal'
+import NewSurvey from './components/NewSurvey'
 export default {
-  name: 'app'
-  // components: { SurveyModal }
+  name: 'app',
+  components: { NewSurvey }
 }
 </script>
 

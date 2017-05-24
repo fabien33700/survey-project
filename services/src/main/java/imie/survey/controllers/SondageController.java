@@ -23,7 +23,7 @@ import imie.survey.utils.Validator;
 import imie.survey.utils.Wrapper;
 
 @RestController
-@RequestMapping("/surveys")
+@RequestMapping("api/surveys")
 public class SondageController {
 	
 	@Autowired

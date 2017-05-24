@@ -41,8 +41,12 @@ public class SondageSerializer extends StdSerializer<SondageResource> {
         jgen.writeArrayFieldStart("propositions");
         
         for (PropositionReponse prop : value.getPropositionsReponse()) {
-        	jgen.writeString(prop.getValeur());
+        	jgen.writeStartObject();
+        	jgen.writeNumberField("id", prop.getId());
+        	jgen.writeStringField("value", prop.getValeur());
+        	jgen.writeEndObject();
         }
+        
         jgen.writeEndArray();
         jgen.writeEndObject();
     }

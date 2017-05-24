@@ -1,7 +1,12 @@
 package imie.survey.resources;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import imie.survey.data.PropositionReponse;
+import imie.survey.data.Sondage;
+import imie.survey.data.Utilisateur;
 
 /**
  * Reponse Sondage DTO
@@ -11,13 +16,13 @@ public class ReponseSondageResource {
 	
 	private Long id;
 	
-	private SondageResource sondage;
+	private Sondage sondage;
 	
-	private UtilisateurResource utilisateur;
+	private Utilisateur utilisateur;
 	
-	private List<PropositionReponseResource> reponses;
+	private List<PropositionReponse> reponses;
 	
-	private LocalDate dateReponse;
+	private String dateReponse;
 
 	public ReponseSondageResource() {}
 
@@ -29,35 +34,55 @@ public class ReponseSondageResource {
 		this.id = id;
 	}
 
-	public SondageResource getSondage() {
+	public Sondage getSondage() {
 		return sondage;
 	}
 
-	public void setSondage(SondageResource sondage) {
+	public void setSondage(Sondage sondage) {
 		this.sondage = sondage;
 	}
 
-	public UtilisateurResource getUtilisateur() {
+	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
-	public void setUtilisateur(UtilisateurResource utilisateur) {
+	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 
-	public List<PropositionReponseResource> getReponses() {
+	public List<PropositionReponse> getReponses() {
 		return reponses;
 	}
 
-	public void setReponses(List<PropositionReponseResource> reponses) {
+	public void setReponses(List<PropositionReponse> reponses) {
 		this.reponses = reponses;
 	}
 
-	public LocalDate getDateReponse() {
+	public String getDateReponse() {
 		return dateReponse;
 	}
 
-	public void setDateReponse(LocalDate dateReponse) {
+	public void setDateReponse(String dateReponse) {
 		this.dateReponse = dateReponse;
+	}
+	
+	public LocalDate getDateReponseConverted() {
+		return convertDateFromStr(this.dateReponse);
+	}
+	
+	public void setDatereponseConverted(LocalDate date) {
+		this.dateReponse = convertDateToString(date);
+	}
+	
+    // Converter
+    
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+	
+	private LocalDate convertDateFromStr(String date) {
+		return LocalDate.parse(date, formatter);
+	}
+	
+	private String convertDateToString(LocalDate date) {
+		return date.format(formatter);
 	}
 }

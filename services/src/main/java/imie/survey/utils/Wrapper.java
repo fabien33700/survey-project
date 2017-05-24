@@ -57,18 +57,26 @@ public class Wrapper {
 	
 	public ReponseSondage convertSurveyAnswerToEntity(ReponseSondageResource repSondageRes) {
 		
-		ReponseSondage Repsondage = modelMapper.map(sondarepSondageResgeResource, ReponseSondage.class);
+		ReponseSondage repSondage = modelMapper.map(repSondageRes, ReponseSondage.class);
 	    
 		// Convertion de la date
-	    sondage.setDateDebut(sondageResource.getDateDebutConverted());
-	    sondage.setDateFin(sondageResource.getDateFinConverted());
-	    
+		repSondage.setDateReponse(repSondageRes.getDateReponseConverted());
+	   
 	    // Set PropositionsReponse
-	    setPropositionsReponseSondage(sondage);
+	    setPropositionsSurveyAnswers(repSondage);
 	    
-	    return sondage;
+	    return repSondage;
 	}
 	
+	/**
+	 * Set 
+	 * @param repSondage
+	 */
+	private void setPropositionsSurveyAnswers(ReponseSondage repSondage) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/**
 	 * Set sondage property for the PropositionReponse Entity 
 	 * @param sondage

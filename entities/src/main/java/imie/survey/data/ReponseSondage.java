@@ -3,13 +3,16 @@ package imie.survey.data;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,24 +30,14 @@ public class ReponseSondage {
 	@ManyToOne
 	private Utilisateur utilisateur;
 	
-	@ManyToMany
+	@JoinTable
+	@OneToMany
 	private List<PropositionReponse> reponses;
 	
 	@Column(name="date_reponse")
 	private LocalDate dateReponse;
 	
 	public ReponseSondage() {}
-	
-	
-
-	public ReponseSondage(Long id, Sondage sondage, Utilisateur utilisateur, List<PropositionReponse> reponses,
-			LocalDate dateReponse) {
-		this.id = id;
-		this.sondage = sondage;
-		this.utilisateur = utilisateur;
-		this.reponses = reponses;
-		this.dateReponse = dateReponse;
-	}
 
 	public Long getId() {
 		return id;
@@ -85,7 +78,4 @@ public class ReponseSondage {
 	public void setDateReponse(LocalDate dateReponse) {
 		this.dateReponse = dateReponse;
 	}
-	
-	
-
 }

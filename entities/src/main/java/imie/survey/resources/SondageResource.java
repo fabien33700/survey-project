@@ -9,14 +9,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import imie.survey.customSerializer.SondageSerializer;
 import imie.survey.data.PropositionReponse;
 import imie.survey.data.Utilisateur;
+import imie.survey.utils.DateConverter;
 
 /**
  * Sondage DTO
  */
 @JsonSerialize(using = SondageSerializer.class)
 public class SondageResource {
-	
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 	
 	private Long id;
 
@@ -105,4 +104,16 @@ public class SondageResource {
     public void setDateFinConverted(LocalDate date) {
         this.dateFin = convertDateToString(date);
     }
+    
+    // Converter
+    
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+	
+	private LocalDate convertDateFromStr(String date) {
+		return LocalDate.parse(date, formatter);
+	}
+	
+	private String convertDateToString(LocalDate date) {
+		return date.format(formatter);
+	}
 }

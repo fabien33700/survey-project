@@ -6,18 +6,19 @@
         show-footer>
         {{ survey.question }}
         <div v-for="item in survey.propositions">
-          <b-form-checkbox v-model="response" :value=item >
-            {{ item }}
+          <b-form-checkbox v-model="reponse" :value=item >
+            {{ item.value }}
           </b-form-checkbox>
        </div>
        <big slot="footer" class="text-muted">
-         <b-button :variant="primary" href="">Voter !</b-button>
+         <b-button variant="primary" href="" @click="postSurveyAnswer">Voter !</b-button>
       </big>
     </b-card>
 </template>
 
 <script>
 import SurveyDao from '@/services/surveys.js'
+import moment from 'moment'
 
 export default {
   name: 'survey',
@@ -26,7 +27,14 @@ export default {
   data () {
     return {
       survey: {},
-      response: ''
+      reponse: {}
+    }
+  },
+
+  methods: {
+    postSurveyAnswer: function () {
+      var surveyAnswer = buildSurveyAnswer(this.survey, this.reponse)
+      SurveyDao.postSurveyAnswers(surveyAnswer)
     }
   },
 
@@ -37,6 +45,20 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
+  }
+}
+
+function buildSurveyAnswer (survey, response) {
+  return {
+    sondage: {
+      id: survey.id
+    },
+    reponses: [
+      { id: response.id } ],
+    utilisateur: {
+      id: 1
+    },
+    dateReponse: moment().format('DD/MM/YYYY')
   }
 }
 

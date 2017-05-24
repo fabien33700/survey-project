@@ -5,14 +5,12 @@ import org.springframework.stereotype.Service;
 
 import imie.survey.dao.PropositionReponseRepository;
 import imie.survey.dao.SondageRepository;
-import imie.survey.dao.UtilisateurRepository;
 import imie.survey.data.PropositionReponse;
 import imie.survey.data.Sondage;
 import imie.survey.data.Utilisateur;
 import imie.survey.exceptions.errors.ResourceNotFoundException;
 import imie.survey.resources.PropositionReponseResource;
 import imie.survey.resources.SondageResource;
-import imie.survey.resources.UtilisateurResource;
 import imie.survey.services.UtilisateurService;
 
 /**

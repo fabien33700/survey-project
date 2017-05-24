@@ -1,4 +1,5 @@
 <template>
+  
   <!-- <div @click="$root.$emit('show::modal', 'modal1')"> -->
       <router-link :to="{ name: 'Survey', params: { id: survey.id }}">
         <b-card
@@ -15,7 +16,7 @@
 
     </b-card>
     </router-link>
-  <!-- </div> -->
+
 </template>
 <script>
 
