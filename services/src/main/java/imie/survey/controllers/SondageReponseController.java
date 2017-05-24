@@ -1,27 +1,20 @@
 package imie.survey.controllers;
 
-import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import imie.survey.dao.ReponseSondageRepository;
 import imie.survey.dao.UtilisateurRepository;
-import imie.survey.data.Sondage;
-import imie.survey.data.Utilisateur;
-import imie.survey.resources.SondageResource;
 
 @RestController
 @RequestMapping("surveyResponses")
 public class SondageReponseController {
 	
+	@Autowired
 	private final UtilisateurRepository userRepository;
+	
+	@Autowired
 	private final ReponseSondageRepository responseRepository;
 	
 	@Autowired
@@ -60,11 +53,5 @@ public class SondageReponseController {
 //		
 //		return ResponseEntity.noContent().build();
 //	}
-	
-	
-	
-	
-
-	
 
 }

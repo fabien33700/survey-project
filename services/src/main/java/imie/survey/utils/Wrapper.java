@@ -2,6 +2,7 @@ package imie.survey.utils;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import imie.survey.data.Sondage;
@@ -10,13 +11,13 @@ import imie.survey.resources.SondageResource;
 @Component
 public class Wrapper {
 	
-	
-	private final ModelMapper modelMapper;
+	@Bean
+	public ModelMapper modelMapper() {
+	    return new ModelMapper();
+	}
 	
 	@Autowired
-	public Wrapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
+	private ModelMapper modelMapper;
 	
 	/**
 	 * Convert Sondage to SondageResource
