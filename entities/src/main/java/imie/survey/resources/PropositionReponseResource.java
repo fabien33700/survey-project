@@ -1,5 +1,9 @@
 package imie.survey.resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import imie.survey.data.Sondage;
+
 /**
  * Proposition Reponse DTO
  *
@@ -10,7 +14,8 @@ public class PropositionReponseResource {
 	
 	private String valeur;
 	
-	private SondageResource sondage;
+	@JsonIgnore
+	private Sondage sondage;
 	
 	public PropositionReponseResource() {}
 
@@ -30,11 +35,11 @@ public class PropositionReponseResource {
 		this.id = id;
 	}
 
-	public SondageResource getSondage() {
+	public Sondage getSondage() {
 		return sondage;
 	}
 
-	public void setSondage(SondageResource sondage) {
+	public void setSondage(Sondage sondage) {
 		this.sondage = sondage;
-	}	
+	}
 }

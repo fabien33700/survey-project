@@ -37,20 +37,14 @@ public class Sondage {
 	@ManyToOne
 	private Utilisateur auteur;
 	
-	//@OneToMany(cascade = CascadeType.PERSIST)
+	@Column(name="question")
+	private String question;
+	
 	@OneToMany(mappedBy="sondage", cascade = CascadeType.PERSIST)
 	private List<PropositionReponse> propositionsReponse;
 
 	public Sondage() {}
 	
-	public Sondage(String nom, LocalDate dateDebut, LocalDate dateFin, Utilisateur auteur) {
-		this.nom = nom;
-		this.dateDebut = dateDebut;
-		this.dateFin = dateFin;
-		this.auteur = auteur;
-	}
-
-
 	public String getNom() {
 		return nom;
 	}
@@ -97,5 +91,13 @@ public class Sondage {
 
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 }
