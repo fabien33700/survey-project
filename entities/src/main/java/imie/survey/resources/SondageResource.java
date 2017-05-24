@@ -105,13 +105,4 @@ public class SondageResource {
     public void setDateFinConverted(LocalDate date) {
         this.dateFin = convertDateToString(date);
     }
-   
-    
-	private LocalDate convertDateFromStr(String date) {
-		return LocalDate.parse(date, formatter);
-	}
-	
-	private String convertDateToString(LocalDate date) {
-		return date.format(formatter);
-	}
 }

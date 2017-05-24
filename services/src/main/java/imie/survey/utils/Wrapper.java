@@ -4,7 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import imie.survey.data.ReponseSondage;
 import imie.survey.data.Sondage;
+import imie.survey.resources.ReponseSondageResource;
 import imie.survey.resources.SondageResource;
 
 @Component
@@ -51,7 +53,21 @@ public class Wrapper {
 	    setPropositionsReponseSondage(sondage);
 	    
 	    return sondage;
-	}	
+	}
+	
+	public ReponseSondage convertSurveyAnswerToEntity(ReponseSondageResource repSondageRes) {
+		
+		ReponseSondage Repsondage = modelMapper.map(sondarepSondageResgeResource, ReponseSondage.class);
+	    
+		// Convertion de la date
+	    sondage.setDateDebut(sondageResource.getDateDebutConverted());
+	    sondage.setDateFin(sondageResource.getDateFinConverted());
+	    
+	    // Set PropositionsReponse
+	    setPropositionsReponseSondage(sondage);
+	    
+	    return sondage;
+	}
 	
 	/**
 	 * Set sondage property for the PropositionReponse Entity 

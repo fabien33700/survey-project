@@ -7,12 +7,7 @@ survey.getAllSurveys = function () {
 }
 
 survey.getSurveyFromId = function (id) {
-  return axios.get('http://localhost:8080/surveys/',
-    {
-      params: {
-        surveyId: id
-      }
-    })
+  return axios.get('http://localhost:8080/surveys/' + id)
 }
 
 export default survey
