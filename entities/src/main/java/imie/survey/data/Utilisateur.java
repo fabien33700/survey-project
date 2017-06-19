@@ -14,13 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 
 @Entity
 @Table(name = "utilisateur")
-public class Utilisateur implements UserDetails {
+public class Utilisateur {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -100,38 +97,38 @@ public class Utilisateur implements UserDetails {
 		this.sondages = sondages;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.asList(role);
-	}
-
-	@Override
-	public String getPassword() {
-		return hashPass;
-	}
-
-	@Override
-	public String getUsername() {
-		return pseudo;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+//	@Override
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		return Arrays.asList(role);
+//	}
+//
+//	@Override
+//	public String getPassword() {
+//		return hashPass;
+//	}
+//
+//	@Override
+//	public String getUsername() {
+//		return pseudo;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonExpired() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonLocked() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isCredentialsNonExpired() {
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean isEnabled() {
+//		return true;
+//	}
 }

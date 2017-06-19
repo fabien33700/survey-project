@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import imie.survey.customSerializer.SondageSerializer;
 import imie.survey.data.PropositionReponse;
 import imie.survey.data.Utilisateur;
-import imie.survey.utils.DateConverter;
 
 /**
  * Sondage DTO

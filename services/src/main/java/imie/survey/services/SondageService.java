@@ -3,14 +3,13 @@ package imie.survey.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import imie.survey.dao.SondageRepository;
 import imie.survey.data.Sondage;
 
 @Service
-@Secured("ROLE_USER")
+// @Secured("ROLE_USER")
 public class SondageService {
 	
 	@Autowired

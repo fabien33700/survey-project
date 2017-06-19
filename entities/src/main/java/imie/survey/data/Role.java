@@ -6,11 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-
 @Entity
 @Table(name = "role")
-public class Role implements GrantedAuthority {
+public class Role {
 
 	@Id
 	@GeneratedValue
@@ -44,9 +42,9 @@ public class Role implements GrantedAuthority {
 		this.nom = nom;
 	}
 
-	@Override
-	public String getAuthority() {
-		return nom;
-	}
+//	@Override
+//	public String getAuthority() {
+//		return nom;
+//	}
 
 }

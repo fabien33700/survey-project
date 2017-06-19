@@ -2,8 +2,6 @@ package imie.survey.resources;
 
 import java.util.List;
 
-import imie.survey.data.Sondage;
-
 /**
  * Utilisateur DTO
  */
