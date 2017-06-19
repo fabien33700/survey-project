@@ -1,30 +1,27 @@
 <template>
 
-  <b-modal id="modal2" class="modal-survey" title="Créer un nouveau sondage" @ok="submit">
+  <b-modal id="modal2" title="Créer un nouveau sondage" @ok="submit">
     <div class="new-modal">
       <form @submit.stop.prevent="submit" >
 
           <b-form-fieldset
-             description="Le nom du sondage."
              label="Nom"
              :label-size="1"
              >
-
              <b-form-input v-model="survey.name"></b-form-input>
          </b-form-fieldset>
 
          <b-form-fieldset
-            description="Votre question."
             label="Question"
             :label-size="1"
             >
-
-            <el-input
+            <b-form-input v-model="survey.question" textarea :rows="2" placeholder="Votre question"></b-form-input>
+            <!-- <el-input
               type="textarea"
               :rows="2"
               placeholder="Please input"
               v-model="survey.question">
-            </el-input>
+            </el-input> -->
 
           </b-form-fieldset>
 
@@ -37,12 +34,12 @@
              <div v-for="(prop, index) in survey.propositions" class="prop-span">
 
                     <b-form-input v-model="survey.propositions[index]" class="prop"></b-form-input>
-                    <el-button type="primary" size="mini" @click="removeProposition(index)" class="remove-prop">-</el-button>
-
+                    <el-button type="primary"size="mini" icon="minus" @click="removeProposition(index)" class="remove-prop"></el-button>
                 </br>
              </div>
 
-             <el-button type="primary" size="mini" @click="addProposition">+</el-button>
+             <!-- <icon name="plus-square" @click="addProposition" ></icon> -->
+             <el-button type="primary" size="mini" @click="addProposition" icon="plus"></el-button>
 
            </b-form-fieldset>
 
