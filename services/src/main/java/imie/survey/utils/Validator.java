@@ -3,15 +3,15 @@ package imie.survey.utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import imie.survey.dao.PropositionReponseRepository;
+import imie.survey.dao.ProposalRepository;
 import imie.survey.dao.SondageRepository;
-import imie.survey.data.PropositionReponse;
-import imie.survey.data.Sondage;
-import imie.survey.data.Utilisateur;
+import imie.survey.data.Proposal;
+import imie.survey.data.Survey;
+import imie.survey.data.User;
 import imie.survey.exceptions.errors.ResourceNotFoundException;
-import imie.survey.resources.PropositionReponseResource;
-import imie.survey.resources.SondageResource;
-import imie.survey.services.UtilisateurService;
+import imie.survey.resources.ProposalResource;
+import imie.survey.resources.SurveyResource;
+import imie.survey.services.UserService;
 
 /**
  * Controller Utils
@@ -21,22 +21,22 @@ import imie.survey.services.UtilisateurService;
 public class Validator {
 	
 	@Autowired
-	private UtilisateurService utilisateurService;
+	private UserService utilisateurService;
 	
 	@Autowired
 	private SondageRepository surveyRepository;
 	
 	@Autowired
-	private PropositionReponseRepository propositionRepository;
+	private ProposalRepository propositionRepository;
 	
 	/**
 	 * Validate if user exists
 	 * @param utilisateur
 	 * @return
 	 */
-	public Utilisateur validateUser(long id){
+	public User validateUser(long id){
 		
-		Utilisateur user = utilisateurService.getUtilisateurFromId(id);
+		User user = utilisateurService.getUtilisateurFromId(id);
 		
 		if(user == null) {
 			
@@ -51,11 +51,11 @@ public class Validator {
 	 * @param sondage
 	 * @return
 	 */
-	public Sondage validateSondage(SondageResource sondageRes) {
+	public Survey validateSondage(SurveyResource sondageRes) {
 		
 		long sondageId = sondageRes.getId();
 				
-		Sondage sondage = surveyRepository.findOne(sondageId);
+		Survey sondage = surveyRepository.findOne(sondageId);
 		
 		if(sondage == null) {
 			
@@ -70,11 +70,11 @@ public class Validator {
 	 * @param sondage
 	 * @return
 	 */
-	public PropositionReponse validateProposition(PropositionReponseResource propReponseRes) {
+	public Proposal validateProposition(ProposalResource propReponseRes) {
 		
 		long propId = propReponseRes.getId();
 				
-		PropositionReponse proposition = propositionRepository.findOne(propId);
+		Proposal proposition = propositionRepository.findOne(propId);
 		
 		if(proposition == null) {
 			

@@ -2,10 +2,11 @@ package imie.survey.dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import imie.survey.data.Utilisateur;
+import imie.survey.data.User;
 
-public interface UtilisateurRepository extends CrudRepository<Utilisateur, Long> {
+
+public interface UserRepository extends CrudRepository<User, Long> {
 	
-	Utilisateur findByPseudo(String pseudo);
+	User findByPseudo(String pseudo);
 
 }

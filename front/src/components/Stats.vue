@@ -7,15 +7,15 @@
       <template slot="title"><i class="el-icon-message"></i>Gérer les utilisateurs</template>
       <el-menu-item-group title="Group One">
         <el-menu-item index="1/users">Liste des utilisateurs</el-menu-item>
-        <el-menu-item index="1-2">item one</el-menu-item>
-      </el-menu-item-group>
+        <!-- <el-menu-item index="1-2">item one</el-menu-item> -->
+      <!-- </el-menu-item-group>
       <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
+        <el-menu-item index="1-3">item three</el-menu-item> -->
       </el-menu-item-group>
-      <el-submenu index="1-4">
+      <!-- <el-submenu index="1-4">
         <template slot="title">item four</template>
         <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-submenu>
+      </el-submenu> -->
     </el-submenu>
     <el-menu-item index="2"><i class="el-icon-menu"></i>Gérer les sondages</el-menu-item>
     <el-menu-item index="3"><i class="el-icon-setting"></i>Navigator Three</el-menu-item>

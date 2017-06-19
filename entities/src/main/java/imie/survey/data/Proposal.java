@@ -9,28 +9,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="proposition_reponse")
-public class PropositionReponse {
+@Table(name="proposal")
+public class Proposal {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id_proposition")
+	@Column(name="id_proposal")
 	private Long id;
 	
-	@Column(name="valeur")
-	private String valeur;
+	@Column
+	private String value;
 	
 	@ManyToOne
-	private Sondage sondage;
+	private Survey survey;
 
-	public String getValeur() {
-		return valeur;
+	public String getValue() {
+		return value;
 	}
 	
-	public PropositionReponse() {}
+	public Proposal() {}
 
-	public void setValeur(String valeur) {
-		this.valeur = valeur;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	public Long getId() {
@@ -41,12 +41,12 @@ public class PropositionReponse {
 		this.id = id;
 	}
 
-	public Sondage getSondage() {
-		return sondage;
+	public Survey getSurvey() {
+		return survey;
 	}
 
-	public void setSondage(Sondage sondage) {
-		this.sondage = sondage;
+	public void setSurvey(Survey survey) {
+		this.survey = survey;
 	}
 	
 	

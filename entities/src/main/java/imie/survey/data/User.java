@@ -16,8 +16,8 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "utilisateur")
-public class Utilisateur {
+@Table(name = "user")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,19 +35,10 @@ public class Utilisateur {
 	@Column(name = "age")
 	private Integer age;
 	
-	@OneToMany(mappedBy="auteur")
-	private List<Sondage> sondages;
+	@OneToMany(mappedBy="author")
+	private List<Survey> surveys;
 
-	public Utilisateur() {}
-	
-	public Utilisateur(Long id, String pseudo, String hashPass, Role role, Integer age, List<Sondage> sondages) {
-		this.id = id;
-		this.pseudo = pseudo;
-		this.hashPass = hashPass;
-		this.role = role;
-		this.age = age;
-		this.sondages = sondages;
-	}
+	public User() {}
 
 	public Long getId() {
 		return id;
@@ -89,12 +80,12 @@ public class Utilisateur {
 		this.age = age;
 	}
 	
-	public List<Sondage> getSondages() {
-		return sondages;
+	public List<Survey> getSurveys() {
+		return surveys;
 	}
 
-	public void setSondages(List<Sondage> sondages) {
-		this.sondages = sondages;
+	public void setSurveys(List<Survey> surveys) {
+		this.surveys = surveys;
 	}
 
 //	@Override

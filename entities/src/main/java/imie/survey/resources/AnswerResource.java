@@ -4,27 +4,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import imie.survey.data.PropositionReponse;
-import imie.survey.data.Sondage;
-import imie.survey.data.Utilisateur;
-
 /**
  * Reponse Sondage DTO
  *
  */
-public class ReponseSondageResource {
+public class AnswerResource {
 	
 	private Long id;
 	
-	private Sondage sondage;
+	private SurveyResource survey;
 	
-	private Utilisateur utilisateur;
+	private UserResource user;
 	
-	private List<PropositionReponse> reponses;
+	private List<ProposalResource> proposals;
 	
-	private String dateReponse;
+	private String dateAnswer;
 
-	public ReponseSondageResource() {}
+	public AnswerResource() {}
 
 	public Long getId() {
 		return id;
@@ -34,44 +30,44 @@ public class ReponseSondageResource {
 		this.id = id;
 	}
 
-	public Sondage getSondage() {
-		return sondage;
+	public SurveyResource getSurvey() {
+		return survey;
 	}
 
-	public void setSondage(Sondage sondage) {
-		this.sondage = sondage;
+	public void setSurvey(SurveyResource survey) {
+		this.survey = survey;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	public UserResource getUser() {
+		return user;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setUser(UserResource user) {
+		this.user = user;
 	}
 
-	public List<PropositionReponse> getReponses() {
-		return reponses;
+	public List<ProposalResource> getProposals() {
+		return proposals;
 	}
 
-	public void setReponses(List<PropositionReponse> reponses) {
-		this.reponses = reponses;
+	public void setProposals(List<ProposalResource> proposals) {
+		this.proposals = proposals;
 	}
 
-	public String getDateReponse() {
-		return dateReponse;
+	public String getDateAnswer() {
+		return dateAnswer;
 	}
 
-	public void setDateReponse(String dateReponse) {
-		this.dateReponse = dateReponse;
+	public void setDateAnswer(String dateAnswer) {
+		this.dateAnswer = dateAnswer;
 	}
 	
-	public LocalDate getDateReponseConverted() {
-		return convertDateFromStr(this.dateReponse);
+	public LocalDate getDateAnswerConverted() {
+		return convertDateFromStr(this.dateAnswer);
 	}
 	
-	public void setDatereponseConverted(LocalDate date) {
-		this.dateReponse = convertDateToString(date);
+	public void setDateAnswerConverted(LocalDate date) {
+		this.dateAnswer = convertDateToString(date);
 	}
 	
     // Converter

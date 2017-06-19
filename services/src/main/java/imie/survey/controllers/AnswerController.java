@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import imie.survey.data.ReponseSondage;
-import imie.survey.resources.ReponseSondageResource;
+import imie.survey.data.Answer;
+import imie.survey.mapping.mappers.AnswerMapper;
+import imie.survey.resources.AnswerResource;
 import imie.survey.services.SurveyAnswerService;
 import imie.survey.utils.Validator;
-import imie.survey.utils.Wrapper;
 
 @RestController
 @RequestMapping("api/surveysanswers")
-public class SurveyAnswerController {
+public class AnswerController {
 	
 	@Autowired
 	private SurveyAnswerService surveyAnswerService;
@@ -25,7 +25,7 @@ public class SurveyAnswerController {
 	private Validator validator;
 	
 	@Autowired
-	private Wrapper wrapper;
+	private AnswerMapper wrapper;
 	
 	/**
 	 * Create a new survey answer
@@ -36,12 +36,12 @@ public class SurveyAnswerController {
 	 * @throws IllegalAccessException 
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	ResponseEntity<?> addSurveyAnswer(@RequestBody ReponseSondageResource reponseSondageRes) throws IllegalAccessException, InvocationTargetException {
+	ResponseEntity<?> addSurveyAnswer(@RequestBody AnswerResource reponseSondageRes) throws IllegalAccessException, InvocationTargetException {
 		
 		// Validation de l'utilisateur
-		validator.validateUser(reponseSondageRes.getUtilisateur().getId());
+		validator.validateUser(reponseSondageRes.getUser().getId());
 		
-		ReponseSondage sondageReponse = wrapper.convertSurveyAnswerToEntity(reponseSondageRes);
+		Answer sondageReponse = wrapper.getEntityFromDto(reponseSondageRes);
 		
 		surveyAnswerService.saveSuveyAnswer(sondageReponse);
 		

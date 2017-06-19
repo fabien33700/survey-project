@@ -2,8 +2,8 @@ package imie.survey.dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import imie.survey.data.ReponseSondage;
+import imie.survey.data.Answer;
 
-public interface ReponseSondageRepository extends CrudRepository<ReponseSondage, Long>{
+public interface AnswerRepository extends CrudRepository<Answer, Long>{
 
 }

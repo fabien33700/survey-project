@@ -7,69 +7,72 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import imie.survey.customSerializer.SondageSerializer;
-import imie.survey.data.PropositionReponse;
-import imie.survey.data.Utilisateur;
+import imie.survey.data.Proposal;
+import imie.survey.mapping.Transform;
+import imie.survey.mapping.Treatment;
 
 /**
  * Sondage DTO
  */
 @JsonSerialize(using = SondageSerializer.class)
-public class SondageResource {
+public class SurveyResource {
 	
 	private Long id;
 
-	private String nom;
+	private String name;
 	
-	private String dateDebut;
+	private String dateStart;
 	
-	private String dateFin;
+	private String dateEnd;
 	
-	private Utilisateur auteur;
+	private UserResource author;
 	
 	private String question;
 
-	private List<PropositionReponse> propositionsReponse;
+	// @NestedMapping(target = Proposal.class, source = ProposalResource.class)
+	private List<ProposalResource> proposals;
 	
-	public SondageResource() {}
+	public SurveyResource() {}
 
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
     
-    public List<PropositionReponse> getPropositionsReponse() {
-		return propositionsReponse;
+    public List<ProposalResource> getProposals() {
+		return proposals;
 	}
 
-	public void setPropositionsReponse(List<PropositionReponse> propositionsReponse) {
-		this.propositionsReponse = propositionsReponse;
+	public void setProposals(List<ProposalResource> proposals) {
+		this.proposals = proposals;
 	}
 
-	public Utilisateur getAuteur() {
-		return auteur;
+	public UserResource getAuthor() {
+		return author;
+	}
+	
+	@scope("UserScope")
+	public void setAuthor(UserResource author) {
+		this.author = author;
 	}
 
-	public void setAuteur(Utilisateur auteur) {
-		this.auteur = auteur;
+	public String getDateStart() {
+		return dateStart;
 	}
 
-	public String getDateDebut() {
-		return dateDebut;
+	public void setDateStart(String dateStart) {
+		this.dateStart = dateStart;
 	}
 
-	public void setDateDebut(String dateDebut) {
-		this.dateDebut = dateDebut;
+	public String getDateEnd() {
+		return dateEnd;
 	}
 
-	public String getDateFin() {
-		return dateFin;
-	}
-
-	public void setDateFin(String dateFin) {
-		this.dateFin = dateFin;
+	public void setDateFin(String dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 
 	public Long getId() {
@@ -88,20 +91,20 @@ public class SondageResource {
 		this.question = question;
 	}
 
-	public LocalDate getDateDebutConverted() {
-		return convertDateFromStr(this.dateDebut);
+	public LocalDate getDateStartConverted() {
+		return convertDateFromStr(this.dateStart);
     }
 	
-	public LocalDate getDateFinConverted() {
-		return convertDateFromStr(this.dateFin);
+	public LocalDate getDateEndConverted() {
+		return convertDateFromStr(this.dateEnd);
     }
  
-    public void setDateDebutConverted(LocalDate date) {
-        this.dateDebut = convertDateToString(date);
+    public void setDateStartConverted(LocalDate date) {
+        this.dateStart = convertDateToString(date);
     }
     
-    public void setDateFinConverted(LocalDate date) {
-        this.dateFin = convertDateToString(date);
+    public void setDateendConverted(LocalDate date) {
+        this.dateEnd = convertDateToString(date);
     }
     
     // Converter

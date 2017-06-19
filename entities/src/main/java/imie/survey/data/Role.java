@@ -15,16 +15,10 @@ public class Role {
 	@Column(name = "id_role")
 	private Long id;
 	
-	@Column(name = "nom")
-	private String nom;
+	@Column(name = "name")
+	private String name;
 
 	public Role() {}
-
-	public Role(Long id, String nom) {
-		super();
-		this.id = id;
-		this.nom = nom;
-	}
 
 	public Long getId() {
 		return id;
@@ -34,12 +28,12 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 //	@Override

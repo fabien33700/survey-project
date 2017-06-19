@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import imie.survey.dao.SondageRepository;
-import imie.survey.data.Sondage;
+import imie.survey.data.Survey;
 
 @Service
 // @Secured("ROLE_USER")
@@ -20,7 +20,7 @@ public class SondageService {
 	 * @param id
 	 * @return
 	 */
-	public Sondage getSondageFromId(long id) {
+	public Survey getSondageFromId(long id) {
 		return this.sondageRepository.findOne(id);
 	}
 
@@ -28,8 +28,8 @@ public class SondageService {
 	 * Get all surveys
 	 * @return
 	 */
-	public List<Sondage> getAllSondages() {
-		return (List<Sondage>) this.sondageRepository.findAll();
+	public List<Survey> getAllSondages() {
+		return (List<Survey>) this.sondageRepository.findAll();
 	}
 
 	/**

@@ -3,41 +3,39 @@ package imie.survey.data;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="reponse_sondage")
-public class ReponseSondage {
+@Table(name="answer")
+public class Answer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id_reponse")
+	@Column(name="id_answer")
 	private Long id;
 	
 	@ManyToOne
-	private Sondage sondage;
+	private Survey survey;
 	
 	@ManyToOne
-	private Utilisateur utilisateur;
+	private User user;
 	
 	@JoinTable
 	@OneToMany
-	private List<PropositionReponse> reponses;
+	private List<Proposal> proposals;
 	
-	@Column(name="date_reponse")
-	private LocalDate dateReponse;
+	@Column(name="date_answer")
+	private LocalDate dateAnswer;
 	
-	public ReponseSondage() {}
+	public Answer() {}
 
 	public Long getId() {
 		return id;
@@ -47,35 +45,35 @@ public class ReponseSondage {
 		this.id = id;
 	}
 
-	public Sondage getSondage() {
-		return sondage;
+	public Survey getSurvey() {
+		return survey;
 	}
 
-	public void setSondage(Sondage sondage) {
-		this.sondage = sondage;
+	public void setSurvey(Survey survey) {
+		this.survey = survey;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public List<PropositionReponse> getReponses() {
-		return reponses;
+	public List<Proposal> getProposals() {
+		return proposals;
 	}
 
-	public void setReponses(List<PropositionReponse> reponses) {
-		this.reponses = reponses;
+	public void setProposals(List<Proposal> proposals) {
+		this.proposals = proposals;
 	}
 
-	public LocalDate getDateReponse() {
-		return dateReponse;
+	public LocalDate getDateAnswer() {
+		return dateAnswer;
 	}
 
-	public void setDateReponse(LocalDate dateReponse) {
-		this.dateReponse = dateReponse;
+	public void setDateAnswer(LocalDate dateAnswer) {
+		this.dateAnswer = dateAnswer;
 	}
 }

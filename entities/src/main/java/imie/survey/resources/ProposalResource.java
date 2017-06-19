@@ -2,29 +2,27 @@ package imie.survey.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import imie.survey.data.Sondage;
-
 /**
  * Proposition Reponse DTO
  *
  */
-public class PropositionReponseResource {
+public class ProposalResource {
 	
 	private Long id;
 	
-	private String valeur;
+	private String value;
 	
 	@JsonIgnore
-	private Sondage sondage;
+	private SurveyResource survey;
 	
-	public PropositionReponseResource() {}
+	public ProposalResource() {}
 
-	public String getValeur() {
-		return valeur;
+	public String getValue() {
+		return value;
 	}
 
-	public void setValeur(String valeur) {
-		this.valeur = valeur;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	public Long getId() {
@@ -35,11 +33,11 @@ public class PropositionReponseResource {
 		this.id = id;
 	}
 
-	public Sondage getSondage() {
-		return sondage;
+	public SurveyResource getSurvey() {
+		return survey;
 	}
 
-	public void setSondage(Sondage sondage) {
-		this.sondage = sondage;
+	public void setSurvey(SurveyResource survey) {
+		this.survey = survey;
 	}
 }

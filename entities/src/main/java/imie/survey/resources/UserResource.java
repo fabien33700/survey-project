@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Utilisateur DTO
  */
-public class UtilisateurResource {
+public class UserResource {
 	
 	private Long id;
 
@@ -17,9 +17,9 @@ public class UtilisateurResource {
 
 	private Integer age;
 	
-	private List<SondageResource> sondages;
+	private List<SurveyResource> surveys;
 
-	public UtilisateurResource() {}
+	public UserResource() {}
 
 	public Long getId() {
 		return id;
@@ -61,12 +61,12 @@ public class UtilisateurResource {
 		this.age = age;
 	}
 
-	public List<SondageResource> getSondages() {
-		return sondages;
+	public List<SurveyResource> getSurveys() {
+		return surveys;
 	}
 
-	public void setSondages(List<SondageResource> sondages) {
-		this.sondages = sondages;
+	public void setSurveys(List<SurveyResource> surveys) {
+		this.surveys = surveys;
 	}
 
 }

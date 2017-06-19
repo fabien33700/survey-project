@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import imie.survey.dao.SondageRepository;
-import imie.survey.data.Sondage;
-import imie.survey.resources.SondageResource;
+import imie.survey.data.Survey;
+import imie.survey.mapping.mappers.SurveyMapper;
+import imie.survey.resources.SurveyResource;
 import imie.survey.services.SondageService;
 import imie.survey.utils.Validator;
-import imie.survey.utils.Wrapper;
 
 @RestController
 @RequestMapping("api/surveys")
-public class SondageController {
+public class SurveyController {
 	
 	@Autowired
 	private SondageRepository sondageRepository;
@@ -33,7 +33,7 @@ public class SondageController {
 	private Validator validator;
 	
 	@Autowired
-	private Wrapper wrapper;
+	private SurveyMapper surveyMapper;
 	
 	@Autowired
 	private SondageService sondageService;
@@ -45,9 +45,9 @@ public class SondageController {
 	 * @return
 	 */
 	@RequestMapping(value="/{surveyId}", method = RequestMethod.GET)
-    public SondageResource getSurvey(@PathVariable long surveyId) {
-		Sondage sondage = sondageService.getSondageFromId(surveyId);		
-		return wrapper.convertSondageToDto(sondage);		
+    public SurveyResource getSurvey(@PathVariable long surveyId) {
+		Survey sondage = sondageService.getSondageFromId(surveyId);		
+		return surveyMapper.getDtoFromEntity(sondage);		
     }
 	
 	/**
@@ -55,11 +55,12 @@ public class SondageController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-    public List<SondageResource> allSurveys() {
-		List<Sondage> sondages = sondageService.getAllSondages();
+    public List<SurveyResource> allSurveys() {
+		
+		List<Survey> sondages = sondageService.getAllSondages();
 		
 		return sondages.stream()
-					   .map(wrapper::convertSondageToDto)
+					   .map(surveyMapper::getDtoFromEntity)
 					   .collect(Collectors.toList());
     }
 	
@@ -72,11 +73,11 @@ public class SondageController {
 	 * @throws IllegalAccessException 
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	ResponseEntity<?> add(@RequestBody SondageResource sondageRes) throws IllegalAccessException, InvocationTargetException {
+	ResponseEntity<?> add(@RequestBody SurveyResource sondageRes) throws IllegalAccessException, InvocationTargetException {
 		
 		// Validation de l'utilisateur
-		validator.validateUser(sondageRes.getAuteur().getId());
-		Sondage sondage = wrapper.convertSondageToEntity(sondageRes);
+		validator.validateUser(sondageRes.getAuthor().getId());
+		Survey sondage = surveyMapper.getEntityFromDto(sondageRes);
 
 		sondageRepository.save(sondage);
 		
@@ -94,14 +95,15 @@ public class SondageController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSurvey(@PathVariable("id") long id) {
-        Sondage sondage = sondageService.getSondageFromId(id);
+        
+		Survey sondage = sondageService.getSondageFromId(id);
        
         if (sondage == null) {
-            return new ResponseEntity<SondageResource>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<SurveyResource>(HttpStatus.NOT_FOUND);
         }
         
         sondageService.deleteSondage(id);
-        return new ResponseEntity<SondageResource>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<SurveyResource>(HttpStatus.NO_CONTENT);
     }
 	
 	/**
@@ -110,6 +112,6 @@ public class SondageController {
 	 */
 	public ResponseEntity<?> deleteAllSurveys() {
 		sondageService.deleteAllSondages();
-		return new ResponseEntity<SondageResource>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<SurveyResource>(HttpStatus.NO_CONTENT);
 	}
 }

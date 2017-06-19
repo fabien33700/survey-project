@@ -7,10 +7,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-import imie.survey.data.PropositionReponse;
-import imie.survey.resources.SondageResource;
+import imie.survey.resources.ProposalResource;
+import imie.survey.resources.SurveyResource;
 
-public class SondageSerializer extends StdSerializer<SondageResource> {
+public class SondageSerializer extends StdSerializer<SurveyResource> {
 	
 	/**
 	 * 
@@ -21,37 +21,33 @@ public class SondageSerializer extends StdSerializer<SondageResource> {
 		this(null);
 	}
 	
-	public SondageSerializer(Class<SondageResource> t) {
+	public SondageSerializer(Class<SurveyResource> t) {
 		super(t);
 	}
 	
 	@Override
     public void serialize(
-      SondageResource value, JsonGenerator jgen, SerializerProvider provider) 
+      SurveyResource value, JsonGenerator jgen, SerializerProvider provider) 
       throws IOException, JsonProcessingException {
   
         jgen.writeStartObject();
         jgen.writeNumberField("id", value.getId());
-        jgen.writeStringField("name", value.getNom());
-        jgen.writeStringField("author", value.getAuteur().getPseudo());
-        jgen.writeStringField("dateDebut", value.getDateDebut());
-        jgen.writeStringField("dateFin", value.getDateFin());
+        jgen.writeStringField("name", value.getName());
+        jgen.writeStringField("author", value.getAuthor().getPseudo());
+        jgen.writeStringField("dateDebut", value.getDateStart());
+        jgen.writeStringField("dateFin", value.getDateEnd());
         jgen.writeStringField("question", value.getQuestion());
         
         jgen.writeArrayFieldStart("propositions");
         
-        for (PropositionReponse prop : value.getPropositionsReponse()) {
+        for (ProposalResource prop : value.getProposals()) {
         	jgen.writeStartObject();
         	jgen.writeNumberField("id", prop.getId());
-        	jgen.writeStringField("value", prop.getValeur());
+        	jgen.writeStringField("value", prop.getValue());
         	jgen.writeEndObject();
         }
         
         jgen.writeEndArray();
         jgen.writeEndObject();
     }
-	
-	
-	
-
 }

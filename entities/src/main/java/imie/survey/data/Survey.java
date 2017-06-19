@@ -17,64 +17,65 @@ import javax.persistence.Table;
  * Sondage
  */
 @Entity
-@Table(name="sondage")
-public class Sondage {
+@Table(name="survey")
+public class Survey {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id_sondage")
+	@Column(name="id_survey")
 	private Long id;
 	
-	@Column(name="nom")
-	private String nom;
+	@Column
+	private String name;
 	
-	@Column(name="date_debut")
-	private LocalDate dateDebut;
+	@Column(name="date_start")
+	private LocalDate dateStart;
 	
-	@Column(name="date_fin")
-	private LocalDate dateFin;
+	@Column(name="date_end")
+	private LocalDate dateEnd;
 	
 	@ManyToOne
-	private Utilisateur auteur;
+	private User author;
 	
-	@Column(name="question")
+	@Column
 	private String question;
 	
-	@OneToMany(mappedBy="sondage", cascade = CascadeType.PERSIST)
-	private List<PropositionReponse> propositionsReponse;
+	@OneToMany(mappedBy="survey", cascade = CascadeType.PERSIST)
+	private List<Proposal> proposals;
 
-	public Sondage() {}
+	public Survey() {}
 	
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	public List<PropositionReponse> getPropositionsReponse() {
-		return propositionsReponse;
+	public List<Proposal> getProposals() {
+		return proposals;
 	}
 
-	public void setPropositionsReponse(List<PropositionReponse> propositionsReponse) {
-		this.propositionsReponse = propositionsReponse;
+	public void setProposals(List<Proposal> proposals) {
+		this.proposals = proposals;
 	}
 
-	public LocalDate getDateDebut() {
-		return dateDebut;
+	public LocalDate getDateStart() {
+		return dateStart;
 	}
 
-	public void setDateDebut(LocalDate dateDebut) {
-		this.dateDebut = dateDebut;
+
+	public void setDateStart(LocalDate dateStart) {
+		this.dateStart = dateStart;
 	}
 
-	public LocalDate getDateFin() {
-		return dateFin;
+	public LocalDate getDateEnd() {
+		return dateEnd;
 	}
 
-	public void setDateFin(LocalDate dateFin) {
-		this.dateFin = dateFin;
+	public void setDateEnd(LocalDate dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 
 	public Long getId() {
@@ -85,12 +86,12 @@ public class Sondage {
 		this.id = idSondage;
 	}
 
-	public Utilisateur getAuteur() {
-		return auteur;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setAuteur(Utilisateur auteur) {
-		this.auteur = auteur;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	public String getQuestion() {
