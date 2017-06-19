@@ -1,14 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Hello from '@/components/Hello'
+import Login from '@/components/Login'
 import Survey from '@/components/Survey'
 import Stats from '@/components/Stats'
 import UsersList from '@/components/UsersList'
 
+import authService from '@/services/auth'
+
+authService.init()
+
 Vue.use(Router)
 
-export default new Router({
+var router = new Router({
   routes: [
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
     {
       path: '/',
       name: 'Hello',
@@ -37,3 +48,7 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach(authService.navigationRedirecter())
+
+export default router
