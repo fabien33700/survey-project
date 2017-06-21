@@ -13,8 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import imie.survey.mapping.modelmapper.Mapping;
+import imie.survey.resources.AnswerResource;
+
 @Entity
 @Table(name="answer")
+@Mapping(target = AnswerResource.class)
 public class Answer {
 	
 	@Id

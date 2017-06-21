@@ -2,12 +2,14 @@ package imie.survey.resources;
 
 import java.util.List;
 
-import imie.survey.mapping.MapExclude;
-import imie.survey.mapping.View;
+import imie.survey.data.User;
+import imie.survey.mapping.modelmapper.Ignore;
+import imie.survey.mapping.modelmapper.Mapping;
 
 /**
  * Utilisateur DTO
  */
+@Mapping(target = User.class)
 public class UserResource {
 	
 	private Long id;
@@ -20,7 +22,6 @@ public class UserResource {
 
 	private Integer age;
 	
-	@MapExclude(views = {View.SURVEY})
 	private List<SurveyResource> surveys;
 
 	public UserResource() {}
@@ -72,5 +73,14 @@ public class UserResource {
 	public void setSurveys(List<SurveyResource> surveys) {
 		this.surveys = surveys;
 	}
+
+	// TODO A supprimer!
+	@Override
+	public String toString() {
+		return "UserResource [id=" + id + ", pseudo=" + pseudo + ", hashPass=" + hashPass + ", role=" + role + ", age="
+				+ age + ", surveys=" + surveys + "]";
+	}
+	
+	
 
 }

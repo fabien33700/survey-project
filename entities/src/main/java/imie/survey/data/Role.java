@@ -1,13 +1,17 @@
 package imie.survey.data;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import imie.survey.mapping.modelmapper.Mapping;
+import imie.survey.resources.RoleResource;
 
 @Entity
 @Table(name = "role")
+@Mapping(target = RoleResource.class)
 public class Role {
 
 	@Id

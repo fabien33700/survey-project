@@ -13,11 +13,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import imie.survey.mapping.modelmapper.Convert;
+import imie.survey.mapping.modelmapper.Mapping;
+import imie.survey.mapping.modelmapper.converters.LocalDateISOToString;
+import imie.survey.resources.SurveyResource;
+
 /**
  * Sondage
  */
 @Entity
 @Table(name="survey")
+@Mapping(target = SurveyResource.class)
 public class Survey {
 	
 	@Id
@@ -28,13 +34,16 @@ public class Survey {
 	@Column
 	private String name;
 	
+	@Convert(using = LocalDateISOToString.class)
 	@Column(name="date_start")
 	private LocalDate dateStart;
 	
+	@Convert(using = LocalDateISOToString.class)
 	@Column(name="date_end")
 	private LocalDate dateEnd;
 	
 	@ManyToOne
+	//@Ignore
 	private User author;
 	
 	@Column

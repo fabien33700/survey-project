@@ -4,10 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import imie.survey.data.Answer;
+import imie.survey.mapping.modelmapper.Mapping;
+
 /**
  * Reponse Sondage DTO
  *
  */
+@Mapping(target = Answer.class)
 public class AnswerResource {
 	
 	private Long id;

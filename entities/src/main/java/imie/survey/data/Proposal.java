@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import imie.survey.mapping.MapExclude;
+import imie.survey.mapping.modelmapper.Mapping;
+import imie.survey.resources.ProposalResource;
 
 @Entity
 @Table(name="proposal")
+@Mapping(target = ProposalResource.class)
 public class Proposal {
 	
 	@Id

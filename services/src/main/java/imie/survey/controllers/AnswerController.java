@@ -1,6 +1,7 @@
 package imie.survey.controllers;
 
 import java.lang.reflect.InvocationTargetException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import imie.survey.data.Answer;
-import imie.survey.mapping.View;
-import imie.survey.mapping.mappers.AnswerMapper;
+import imie.survey.mapping.AnswerMapper;
 import imie.survey.resources.AnswerResource;
 import imie.survey.services.SurveyAnswerService;
 import imie.survey.utils.Validator;
@@ -42,7 +43,7 @@ public class AnswerController {
 		// Validation de l'utilisateur
 		validator.validateUser(reponseSondageRes.getUser().getId());
 		
-		Answer sondageReponse = wrapper.getEntityFromDto(reponseSondageRes, View.SURVEY);
+		Answer sondageReponse = wrapper.getEntityFromDto(reponseSondageRes);
 		
 		surveyAnswerService.saveSuveyAnswer(sondageReponse);
 		

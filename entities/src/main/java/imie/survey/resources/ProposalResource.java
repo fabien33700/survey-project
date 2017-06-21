@@ -2,13 +2,14 @@ package imie.survey.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import imie.survey.mapping.MapExclude;
-import imie.survey.mapping.View;
+import imie.survey.data.Proposal;
+import imie.survey.mapping.modelmapper.Mapping;
 
 /**
  * Proposition Reponse DTO
  *
  */
+@Mapping(target = Proposal.class)
 public class ProposalResource {
 	
 	private Long id;
@@ -16,7 +17,6 @@ public class ProposalResource {
 	private String value;
 	
 	@JsonIgnore
-	@MapExclude(views = {View.SURVEY})
 	private SurveyResource survey;
 	
 	public ProposalResource() {}

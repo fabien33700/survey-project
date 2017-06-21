@@ -1,9 +1,6 @@
 package imie.survey.data;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import imie.survey.mapping.modelmapper.Ignore;
+import imie.survey.mapping.modelmapper.Mapping;
+import imie.survey.resources.UserResource;
+
 
 @Entity
 @Table(name = "user")
+@Mapping(target = UserResource.class)
 public class User {
 
 	@Id
@@ -88,6 +90,12 @@ public class User {
 		this.surveys = surveys;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", pseudo=" + pseudo + ", hashPass=" + hashPass + ", role=" + role + ", age=" + age
+				+ ", surveys=" + surveys + "]";
+	}
+
 //	@Override
 //	public Collection<? extends GrantedAuthority> getAuthorities() {
 //		return Arrays.asList(role);
@@ -122,4 +130,6 @@ public class User {
 //	public boolean isEnabled() {
 //		return true;
 //	}
+	
+	
 }

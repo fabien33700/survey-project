@@ -1,4 +1,4 @@
-package imie.survey.mapping;
+package imie.survey.mapping.modelmapper.converters;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface MapConvert {
-	Class<?> targetType();
+@Target(ElementType.TYPE)
+public @interface RegisterConverter {
+	Class<?> returns();
 }

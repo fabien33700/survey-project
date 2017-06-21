@@ -7,26 +7,23 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import imie.survey.customSerializer.SondageSerializer;
-import imie.survey.mapping.MapConvert;
-import imie.survey.mapping.MapExclude;
-import imie.survey.mapping.View;
+import imie.survey.data.Survey;
+import imie.survey.mapping.modelmapper.Mapping;
 
 /**
  * Sondage DTO
  */
-@JsonSerialize(using = SondageSerializer.class)
+@Mapping(target = Survey.class)
 public class SurveyResource {
 	
 	private Long id;
 
 	private String name;
 	
-	@MapConvert(targetType = LocalDate.class)
 	private String dateStart;
 	
 	private String dateEnd;
 	
-	@MapExclude(views = {View.USERS})
 	private UserResource author;
 	
 	private String question;
@@ -91,31 +88,14 @@ public class SurveyResource {
 		this.question = question;
 	}
 
-	public LocalDate getDateStartConverted() {
-		return convertDateFromStr(this.dateStart);
-    }
-	
-	public LocalDate getDateEndConverted() {
-		return convertDateFromStr(this.dateEnd);
-    }
- 
-    public void setDateStartConverted(LocalDate date) {
-        this.dateStart = convertDateToString(date);
-    }
-    
-    public void setDateendConverted(LocalDate date) {
-        this.dateEnd = convertDateToString(date);
-    }
-    
-    // Converter
-    
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-	
-	private LocalDate convertDateFromStr(String date) {
-		return LocalDate.parse(date, formatter);
+	@Override
+	public String toString() {
+		return "SurveyResource [id=" + id + ", name=" + name + ", dateStart=" + dateStart + ", dateEnd=" + dateEnd
+				+ ", author=" + author + ", question=" + question + ", proposals=" + proposals + "]";
 	}
+
+	// TODO A supprimer!
+
 	
-	private String convertDateToString(LocalDate date) {
-		return date.format(formatter);
-	}
+	
 }

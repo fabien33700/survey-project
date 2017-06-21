@@ -1,8 +1,12 @@
 package imie.survey.resources;
 
+import imie.survey.data.Role;
+import imie.survey.mapping.modelmapper.Mapping;
+
 /**
  * Role DTO
  */
+@Mapping(target = Role.class)
 public class RoleResource {
 	
 	private Long id;

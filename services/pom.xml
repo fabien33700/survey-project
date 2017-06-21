@@ -28,39 +28,39 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-	  	<dependency>
-	  		<groupId>imie.survey-project</groupId>
-	  		<artifactId>entities</artifactId>
-	  		<version>${project.parent.version}</version>
-  		</dependency>
-  		
-  		<dependency>
-	  		<groupId>imie.survey-project</groupId>
-	  		<artifactId>dao</artifactId>
-	  		<version>${project.parent.version}</version>
-  		</dependency>
-  		
-  		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+
 		<dependency>
-		    <groupId>commons-beanutils</groupId>
-		    <artifactId>commons-beanutils</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.modelmapper</groupId>
-		    <artifactId>modelmapper</artifactId>
-		    <version>0.7.4</version>
+			<groupId>imie.survey-project</groupId>
+			<artifactId>entities</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
-		    <groupId>io.jsonwebtoken</groupId>
-		    <artifactId>jjwt</artifactId>
-		    <version>0.7.0</version>
+			<groupId>imie.survey-project</groupId>
+			<artifactId>dao</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>0.7.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+
+
 	</dependencies>
-	
+
 
 	<build>
 		<plugins>

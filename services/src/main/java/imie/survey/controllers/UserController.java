@@ -1,38 +1,27 @@
 package imie.survey.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import imie.survey.data.User;
-import imie.survey.mapping.View;
-import imie.survey.mapping.mappers.UserMapper;
 import imie.survey.resources.UserResource;
 import imie.survey.services.UserService;
 
-@Controller
+@RestController
 @RequestMapping("api/users")
 public class UserController {
 	
+	//private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private UserMapper userMapper;
-	
-	@Autowired
-	private UserService utilisateurService;
+	private UserService userService;
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<UserResource> getAllUsers() {
-		List<User> users = utilisateurService.getAllUsers();
-		
-		return users.stream()
-				   .map(user -> userMapper.getDtoFromEntity(user, View.USERS))
-				   .collect(Collectors.toList());
-		
+	public List<UserResource> getAllUsers() {		
+		return userService.getAllUsers();
 	}
 }

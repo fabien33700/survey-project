@@ -1,4 +1,4 @@
-package imie.survey.mapping;
+package imie.survey.mapping.modelmapper;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface MapExclude {
-	View[] views() default {};
+public @interface Ignore {
+
 }

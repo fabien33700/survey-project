@@ -10,7 +10,7 @@ import imie.survey.data.Survey;
 
 @Service
 // @Secured("ROLE_USER")
-public class SondageService {
+public class SurveyService {
 	
 	@Autowired
 	private SondageRepository sondageRepository;
