@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import imie.survey.mapping.MapExclude;
+
 @Entity
 @Table(name="proposal")
 public class Proposal {

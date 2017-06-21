@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import imie.survey.dao.SondageRepository;
 import imie.survey.data.Survey;
+import imie.survey.mapping.View;
 import imie.survey.mapping.mappers.SurveyMapper;
 import imie.survey.resources.SurveyResource;
 import imie.survey.services.SondageService;
@@ -47,7 +48,7 @@ public class SurveyController {
 	@RequestMapping(value="/{surveyId}", method = RequestMethod.GET)
     public SurveyResource getSurvey(@PathVariable long surveyId) {
 		Survey sondage = sondageService.getSondageFromId(surveyId);		
-		return surveyMapper.getDtoFromEntity(sondage);		
+		return surveyMapper.getDtoFromEntity(sondage, View.SURVEY);		
     }
 	
 	/**
@@ -60,7 +61,7 @@ public class SurveyController {
 		List<Survey> sondages = sondageService.getAllSondages();
 		
 		return sondages.stream()
-					   .map(surveyMapper::getDtoFromEntity)
+					   .map(survey -> surveyMapper.getDtoFromEntity(survey, View.SURVEY))
 					   .collect(Collectors.toList());
     }
 	
@@ -77,7 +78,7 @@ public class SurveyController {
 		
 		// Validation de l'utilisateur
 		validator.validateUser(sondageRes.getAuthor().getId());
-		Survey sondage = surveyMapper.getEntityFromDto(sondageRes);
+		Survey sondage = surveyMapper.getEntityFromDto(sondageRes, View.SURVEY);
 
 		sondageRepository.save(sondage);
 		

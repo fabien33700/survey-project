@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import imie.survey.data.Answer;
+import imie.survey.mapping.View;
 import imie.survey.mapping.mappers.AnswerMapper;
 import imie.survey.resources.AnswerResource;
 import imie.survey.services.SurveyAnswerService;
@@ -41,7 +42,7 @@ public class AnswerController {
 		// Validation de l'utilisateur
 		validator.validateUser(reponseSondageRes.getUser().getId());
 		
-		Answer sondageReponse = wrapper.getEntityFromDto(reponseSondageRes);
+		Answer sondageReponse = wrapper.getEntityFromDto(reponseSondageRes, View.SURVEY);
 		
 		surveyAnswerService.saveSuveyAnswer(sondageReponse);
 		

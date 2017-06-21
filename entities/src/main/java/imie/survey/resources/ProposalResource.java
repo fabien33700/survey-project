@@ -2,6 +2,9 @@ package imie.survey.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import imie.survey.mapping.MapExclude;
+import imie.survey.mapping.View;
+
 /**
  * Proposition Reponse DTO
  *
@@ -13,6 +16,7 @@ public class ProposalResource {
 	private String value;
 	
 	@JsonIgnore
+	@MapExclude(views = {View.SURVEY})
 	private SurveyResource survey;
 	
 	public ProposalResource() {}

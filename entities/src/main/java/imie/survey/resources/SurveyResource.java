@@ -7,9 +7,9 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import imie.survey.customSerializer.SondageSerializer;
-import imie.survey.data.Proposal;
-import imie.survey.mapping.Transform;
-import imie.survey.mapping.Treatment;
+import imie.survey.mapping.MapConvert;
+import imie.survey.mapping.MapExclude;
+import imie.survey.mapping.View;
 
 /**
  * Sondage DTO
@@ -21,15 +21,16 @@ public class SurveyResource {
 
 	private String name;
 	
+	@MapConvert(targetType = LocalDate.class)
 	private String dateStart;
 	
 	private String dateEnd;
 	
+	@MapExclude(views = {View.USERS})
 	private UserResource author;
 	
 	private String question;
 
-	// @NestedMapping(target = Proposal.class, source = ProposalResource.class)
 	private List<ProposalResource> proposals;
 	
 	public SurveyResource() {}
@@ -54,7 +55,6 @@ public class SurveyResource {
 		return author;
 	}
 	
-	@scope("UserScope")
 	public void setAuthor(UserResource author) {
 		this.author = author;
 	}

@@ -10,9 +10,11 @@
 export default {
   name: 'Login',
 
-  data: return {
-    username: '',
-    password: ''
+  data () {
+    return {
+      username: '',
+      password: ''
+    }
   }
 }
 

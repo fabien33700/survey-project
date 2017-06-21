@@ -2,6 +2,9 @@ package imie.survey.resources;
 
 import java.util.List;
 
+import imie.survey.mapping.MapExclude;
+import imie.survey.mapping.View;
+
 /**
  * Utilisateur DTO
  */
@@ -17,6 +20,7 @@ public class UserResource {
 
 	private Integer age;
 	
+	@MapExclude(views = {View.SURVEY})
 	private List<SurveyResource> surveys;
 
 	public UserResource() {}

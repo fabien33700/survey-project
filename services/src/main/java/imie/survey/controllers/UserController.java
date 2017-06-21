@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import imie.survey.data.User;
+import imie.survey.mapping.View;
 import imie.survey.mapping.mappers.UserMapper;
 import imie.survey.resources.UserResource;
 import imie.survey.services.UserService;
@@ -19,7 +20,7 @@ public class UserController {
 	
 	
 	@Autowired
-	private UserMapper wrapper;
+	private UserMapper userMapper;
 	
 	@Autowired
 	private UserService utilisateurService;
@@ -30,7 +31,7 @@ public class UserController {
 		List<User> users = utilisateurService.getAllUsers();
 		
 		return users.stream()
-				   .map(wrapper::getDtoFromEntity)
+				   .map(user -> userMapper.getDtoFromEntity(user, View.USERS))
 				   .collect(Collectors.toList());
 		
 	}

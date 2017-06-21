@@ -1,5 +1,6 @@
 package imie.survey.mapping.mappers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Component;
 import imie.survey.data.Survey;
 import imie.survey.data.User;
 import imie.survey.mapping.IWrapper;
+import imie.survey.mapping.ModelMapper;
+import imie.survey.mapping.View;
 import imie.survey.resources.SurveyResource;
 import imie.survey.resources.UserResource;
 
@@ -23,7 +26,7 @@ public class UserMapper implements IWrapper<User, UserResource> {
 	
 	public UserMapper() {};
 
-	@Override
+	/*@Override
 	public User getEntityFromDto(UserResource dto) {
 		
 		User user = new User();
@@ -56,6 +59,34 @@ public class UserMapper implements IWrapper<User, UserResource> {
 		userRes.setSurveys(surveysRes);
 		
 		return userRes;
+	}*/
+
+	@Override
+	public User getEntityFromDto(UserResource dto, View scope) {
+		ModelMapper<UserResource, User> mapper =
+				new ModelMapper<>(scope, UserResource.class, User.class);
+		
+		try {
+			return mapper.convert(dto);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public UserResource getDtoFromEntity(User entity, View scope) {
+		ModelMapper<User, UserResource> mapper =
+				new ModelMapper<>(scope, User.class, UserResource.class);
+		
+		try {
+			return mapper.convert(entity);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 

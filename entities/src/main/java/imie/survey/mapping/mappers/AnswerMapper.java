@@ -1,5 +1,6 @@
 package imie.survey.mapping.mappers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Component;
 import imie.survey.data.Answer;
 import imie.survey.data.Proposal;
 import imie.survey.mapping.IWrapper;
+import imie.survey.mapping.ModelMapper;
+import imie.survey.mapping.View;
 import imie.survey.resources.AnswerResource;
 import imie.survey.resources.ProposalResource;
 import imie.survey.utils.DateConverter;
@@ -25,8 +28,8 @@ public class AnswerMapper implements IWrapper<Answer, AnswerResource>{
 	@Autowired
 	private ProposalMapper proposalMapper;
 
-	@Override
-	public Answer getEntityFromDto(AnswerResource dto) {
+	/*@Override
+	public Answer getEntityFromDto(AnswerResource dto, String scope) {
 		
 		Answer answer = new Answer();
 		answer.setId(dto.getId());
@@ -56,6 +59,34 @@ public class AnswerMapper implements IWrapper<Answer, AnswerResource>{
 		answerRes.setDateAnswer(DateConverter.convertDateToString(entity.getDateAnswer()));
 		
 		return answerRes;
+	}*/
+
+	@Override
+	public Answer getEntityFromDto(AnswerResource dto, View scope) {
+		ModelMapper<AnswerResource, Answer> mapper = 
+				new ModelMapper<>(scope, AnswerResource.class, Answer.class);
+		
+		try {
+			return mapper.convert(dto);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public AnswerResource getDtoFromEntity(Answer entity, View scope) {
+		ModelMapper<Answer, AnswerResource> mapper = 
+				new ModelMapper<>(scope, Answer.class, AnswerResource.class);
+		
+		try {
+			return mapper.convert(entity);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
