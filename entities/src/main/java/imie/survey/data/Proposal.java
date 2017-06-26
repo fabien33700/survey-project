@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import imie.survey.mapping.modelmapper.Mapping;
 import imie.survey.resources.ProposalResource;
+import imie.utils.modelmapper.annotations.Mapping;
 
 @Entity
 @Table(name="proposal")

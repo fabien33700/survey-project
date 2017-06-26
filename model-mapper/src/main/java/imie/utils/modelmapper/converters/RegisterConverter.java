@@ -1,4 +1,4 @@
-package imie.survey.mapping.modelmapper.converters;
+package imie.utils.modelmapper.converters;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

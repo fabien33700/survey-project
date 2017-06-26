@@ -1,6 +1,6 @@
 package imie.survey.mapping;
 
-import imie.survey.mapping.modelmapper.ModelMapper;
+import imie.utils.modelmapper.ModelMapper;
 
 @SuppressWarnings("unchecked")
 public interface Wrapper<E, D> {

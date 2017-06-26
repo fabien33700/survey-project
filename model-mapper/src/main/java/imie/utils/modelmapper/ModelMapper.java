@@ -1,4 +1,4 @@
-package imie.survey.mapping.modelmapper;
+package imie.utils.modelmapper;
 
 import java.beans.Expression;
 import java.beans.Statement;
@@ -17,17 +17,24 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
-import imie.survey.mapping.modelmapper.converters.RegisterConverter;
-import imie.survey.mapping.modelmapper.converters.Converter;
+import imie.utils.modelmapper.annotations.Convert;
+import imie.utils.modelmapper.converters.Converter;
+import imie.utils.modelmapper.core.MappingCall;
+import imie.utils.modelmapper.annotations.Ignore;
+import imie.utils.modelmapper.annotations.Mapping;
+import imie.utils.modelmapper.converters.RegisterConverter;
+import imie.utils.modelmapper.core.MappingException;
+import imie.utils.modelmapper.core.MappingStack;
 
 /**
  * usage: ModelMapper mapper = new ModelMapper(source); result =
@@ -53,7 +60,14 @@ public class ModelMapper {
 	/**
 	 * Call stack for mapped class
 	 */
-	private List<Class<?>> stack = null;
+	private MappingStack callStack;
+
+	/**
+	 * Current nested depth
+	 */
+	private int depth;
+
+	private int order;
 
 	/**
 	 * Build a new ModelMapper
@@ -73,7 +87,9 @@ public class ModelMapper {
 	 *             An error during mapping has occurred
 	 */
 	public Object convert() throws MappingException {
-		stack = new ArrayList<>();
+		callStack = new MappingStack();
+		depth = 0;
+		order = 0;
 
 		return convert(rootSource);
 	}
@@ -108,7 +124,7 @@ public class ModelMapper {
 
 		// The source object's class
 		Class<?> sourceClass = source.getClass();
-		stack.add(sourceClass);
+		callStack.put(++order, new MappingCall(sourceClass, ++depth));
 
 		// Find a possible mapping annotation on the source class
 		Mapping mapping = findAnnotation(sourceClass, Mapping.class);
@@ -168,12 +184,11 @@ public class ModelMapper {
 								sourceField, sourceClass);
 					}
 
-					if (arrayItemMapping != null) { 
+					if (arrayItemMapping != null) {
 
-						if (stack.contains(arrayItemClass)) {
+						if (callStack.containsClass(arrayItemClass)) {
 							// TODO Return Circular constant value
-							logger.warn("Cyclic call detected with {} on field {}, call stack : {}",
-									sourceClass.getSimpleName(), sourceField.getName(), getCallStack(arrayItemClass));
+							trackCircularCall(sourceClass, sourceField);
 							continue;
 						}
 
@@ -222,10 +237,15 @@ public class ModelMapper {
 
 						// if (collectionItemClass.equals(rootClass) &&
 						// !sourceClass.equals(rootClass)) {
-						if (stack.contains(collectionItemClass)) {
-							logger.warn("Cyclic call detected with {} on field {}, call stack : {}",
-									sourceClass.getSimpleName(), sourceField.getName(),
-									getCallStack(collectionItemClass));
+						if (callStack.containsClass(collectionItemClass)) {
+							/*
+							 * logger.
+							 * warn("Cyclic call detected with {} on field <{}> {} (order={}, depth={})"
+							 * , sourceClass.getSimpleName(),
+							 * sourceField.getType(), sourceField.getName(),
+							 * order, depth);
+							 */
+							trackCircularCall(sourceClass, sourceField);
 							continue;
 						}
 
@@ -284,10 +304,15 @@ public class ModelMapper {
 
 					if ((fieldMapping != null) && !sourceField.getType().isPrimitive()) {
 						// Cyclic call protection
-						if (stack.contains(sourceField.getType())) {
-							logger.warn("Cyclic call detected with {} on field {}, call stack : {}",
-									sourceClass.getSimpleName(), sourceField.getName(),
-									getCallStack(sourceField.getType()));
+						if (callStack.containsClass(sourceField.getType())) {
+							/*
+							 * logger.
+							 * warn("Cyclic call detected with {} on field <{}> {} (order={}, depth={})"
+							 * , sourceClass.getSimpleName(),
+							 * sourceField.getType(), sourceField.getName(),
+							 * order, depth);
+							 */
+							trackCircularCall(sourceClass, sourceField);
 							continue;
 						}
 
@@ -312,10 +337,6 @@ public class ModelMapper {
 									continue;
 								}
 
-								// if (converterReturns.equals())
-								// TODO Check if returns types of converter and
-								// target field type match
-
 								Object targetValue = ((Converter) converter).convert(sourceValue);
 								mapTargetValue(sourceClass, source, sourceField, targetClass, target, converterReturns,
 										targetValue);
@@ -328,6 +349,11 @@ public class ModelMapper {
 					}
 				}
 			}
+		}
+
+		// Decremeting depth counter at end of nested convert() execution
+		if (--depth == 0) {
+			getCallStack();
 		}
 
 		// Returns the target object
@@ -371,7 +397,8 @@ public class ModelMapper {
 			targetField = targetClass.getDeclaredField(sourceField.getName());
 			assert (targetField != null);
 
-			setter = targetClass.getDeclaredMethod("set" + ucFirst(sourceField.getName()), targetFieldClass);
+			setter = targetClass.getDeclaredMethod("set" + StringUtils.capitalize(sourceField.getName()),
+					targetFieldClass);
 			assert (setter != null);
 
 			Statement exec = new Statement(targetObject, setter.getName(), new Object[] { targetValue });
@@ -389,7 +416,7 @@ public class ModelMapper {
 	private Method findGetter(Field field, Class<?> sourceClass) {
 		Method getter = null;
 		try {
-			getter = sourceClass.getDeclaredMethod("get" + ucFirst(field.getName()));
+			getter = sourceClass.getDeclaredMethod("get" + StringUtils.capitalize(field.getName()));
 		} catch (NoSuchMethodException | SecurityException e) {
 			logger.debug("Unable to find getter for field {} in {}", field.getName(), sourceClass);
 		}
@@ -416,9 +443,36 @@ public class ModelMapper {
 		return null;
 	}
 
-	private String getCallStack(Class<?> cyclicCallClass) {
-		return stack.stream().map(Class::getSimpleName).collect(Collectors.joining(" > ")).toString()
-				.concat(" > [X] " + cyclicCallClass.getSimpleName());
+	private void getCallStack() {
+		logger.debug("Final mapping hierarchy stack for {} class.", rootSource.getClass().getSimpleName());
+		logger.debug("X indicates blocked cyclic calls, target value will be null)");
+		
+		String line = "";
+
+		for (Entry<Integer, MappingCall> callEntry : callStack.entrySet()) {
+			int order = callEntry.getKey();
+			MappingCall call = callEntry.getValue();
+			
+			line = String.format("%d: %s+%s", order, StringUtils.repeat("-", (call.getDepth() - 1) * 3),
+					call.getCallClass().getSimpleName());
+
+			if (call.getProblematicField() != null) {
+				line += String.format(" --> [X] %s", call.getProblematicField().getType().getSimpleName());
+			}
+			
+			logger.debug("{}", line);
+		}
+	}
+
+	private void trackCircularCall(Class<?> problematicClass, Field problematicField) {
+		logger.warn("Cyclic call detected with {} on field <{}> {} (order={}, depth={})",
+				problematicClass.getSimpleName(), problematicField.getType().getSimpleName(),
+				problematicField.getName(), order, depth);
+
+		int last = callStack.lastKey();
+		MappingCall lastCall = callStack.get(last);
+
+		lastCall.setProblematicField(problematicField);
 	}
 
 	public static boolean isAbstractType(Class<?> testClass) {
@@ -464,9 +518,5 @@ public class ModelMapper {
 		} while ((pointerClass = pointerClass.getSuperclass()) != null);
 
 		return hierarchy;
-	}
-
-	private static String ucFirst(String str) {
-		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 }

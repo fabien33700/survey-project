@@ -1,4 +1,4 @@
-package imie.survey.mapping.modelmapper;
+package imie.utils.modelmapper.core;
 
 @SuppressWarnings("serial")
 public class MappingException extends RuntimeException {

@@ -6,8 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import imie.survey.mapping.modelmapper.Mapping;
 import imie.survey.resources.RoleResource;
+import imie.utils.modelmapper.annotations.Mapping;
 
 @Entity
 @Table(name = "role")

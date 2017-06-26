@@ -16,6 +16,7 @@
 		<module>entities</module>
 		<module>front</module>
 		<module>services</module>
+		<module>model-mapper</module>
 	</modules>
 
 	<parent>

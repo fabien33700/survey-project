@@ -1,4 +1,4 @@
-package imie.survey.mapping.modelmapper.converters;
+package imie.utils.modelmapper.converters;
 
 public interface Converter<S, T> {
 	T convert(S source);

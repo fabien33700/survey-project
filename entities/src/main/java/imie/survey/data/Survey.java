@@ -13,10 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import imie.survey.mapping.modelmapper.Convert;
-import imie.survey.mapping.modelmapper.Mapping;
-import imie.survey.mapping.modelmapper.converters.LocalDateISOToString;
 import imie.survey.resources.SurveyResource;
+import imie.utils.modelmapper.annotations.Convert;
+import imie.utils.modelmapper.annotations.Mapping;
+import imie.utils.modelmapper.converters.LocalDateISOToString;
 
 /**
  * Sondage

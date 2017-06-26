@@ -1,7 +1,8 @@
-package imie.survey.mapping.modelmapper.converters;
+package imie.utils.modelmapper.converters;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import imie.utils.modelmapper.converters.Converter;
 
 @RegisterConverter(returns = String.class)	
 public class LocalDateISOToString implements Converter<LocalDate, String>{

@@ -3,7 +3,7 @@ package imie.survey.resources;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import imie.survey.data.Proposal;
-import imie.survey.mapping.modelmapper.Mapping;
+import imie.utils.modelmapper.annotations.Mapping;
 
 /**
  * Proposition Reponse DTO

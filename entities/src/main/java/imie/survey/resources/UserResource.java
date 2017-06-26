@@ -3,8 +3,7 @@ package imie.survey.resources;
 import java.util.List;
 
 import imie.survey.data.User;
-import imie.survey.mapping.modelmapper.Ignore;
-import imie.survey.mapping.modelmapper.Mapping;
+import imie.utils.modelmapper.annotations.Mapping;
 
 /**
  * Utilisateur DTO

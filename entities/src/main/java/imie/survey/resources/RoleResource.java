@@ -1,7 +1,7 @@
 package imie.survey.resources;
 
 import imie.survey.data.Role;
-import imie.survey.mapping.modelmapper.Mapping;
+import imie.utils.modelmapper.annotations.Mapping;
 
 /**
  * Role DTO

@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import imie.survey.data.Survey;
 
-public interface SondageRepository extends CrudRepository<Survey, Long> {
+public interface SurveyRepository extends CrudRepository<Survey, Long> {
 
 }
