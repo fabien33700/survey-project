@@ -1,17 +1,25 @@
 package imie.survey.controllers;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import imie.survey.data.Survey;
 import imie.survey.exceptions.errors.ResourceNotFoundException;
 import imie.survey.resources.SurveyResource;
+import imie.survey.serialization.Views;
 import imie.survey.services.SurveyService;
 
 @RestController
@@ -19,8 +27,7 @@ import imie.survey.services.SurveyService;
 public class SurveyController {
 	
 	@Autowired
-	private SurveyService surveyService;
-	
+	private SurveyService surveyService;	
 	
 	/**
 	 * Get a survey from its id
@@ -28,8 +35,9 @@ public class SurveyController {
 	 * @return
 	 * @throws Exception 
 	 */
+	@JsonView(Views.Survey.class)
 	@RequestMapping(value="/{surveyId}", method = RequestMethod.GET)
-    public SurveyResource getSurvey(@PathVariable long surveyId) {
+    public Survey getSurvey(@PathVariable long surveyId) {
 		return surveyService.getSurvey(surveyId);		
     }
 	
@@ -37,8 +45,9 @@ public class SurveyController {
 	 * Get all surveys
 	 * @return
 	 */
+	@JsonView(Views.Survey.class)
 	@RequestMapping(method = RequestMethod.GET)
-    public List<SurveyResource> allSurveys() {
+    public List<Survey> allSurveys() {
 		return surveyService.getAllSurveys();
     }
 	
@@ -49,21 +58,17 @@ public class SurveyController {
 	 * @return
 	 * @throws Exception 
 	 */
-	/*@RequestMapping(method = RequestMethod.POST)
-	ResponseEntity<?> add(@RequestBody SurveyResource sondageRes) {
+	@RequestMapping(method = RequestMethod.POST)
+	ResponseEntity<?> add(@RequestBody SurveyResource resource) {
 		
-		// Validation de l'utilisateur
-		validator.validateUser(sondageRes.getAuthor().getId());
-		Survey sondage = surveyMapper.getEntityFromDto(sondageRes);
-
-		sondageRepository.save(sondage);
+		Long created = surveyService.createSurvey(resource);
 		
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(sondage.getId()).toUri();
+				.buildAndExpand(created).toUri();
 		
 		return ResponseEntity.created(location).build();
-	}*/
+	}
 	
 	/**
 	 * Delete a survey
@@ -72,14 +77,13 @@ public class SurveyController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSurvey(@PathVariable("id") long id) {
-        
-		SurveyResource survey = surveyService.getSurvey(id);
-       
-        if (survey == null) {
-            throw new ResourceNotFoundException("Le sondage " + id + " n'a pas été trouvé");
-        }
-        
-        surveyService.deleteSurvey(id);
+		
+		surveyService.deleteSurvey(
+			Optional.ofNullable(surveyService.getSurvey(id))
+				.orElseThrow(() -> 
+					new ResourceNotFoundException("Le sondage " + id + " n'a pas été trouvé"))
+			.getId());
+
         return new ResponseEntity<SurveyResource>(HttpStatus.NO_CONTENT);
     }
 	

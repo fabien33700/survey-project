@@ -17,6 +17,7 @@
 
 import Hub from '../events/EventBus.js'
 import SurveyDao from '@/services/surveys.js'
+import VertxEventBus from '@/vertx/eventBus.js'
 import moment from 'moment'
 
 export default {
@@ -43,7 +44,9 @@ export default {
     postSurveyAnswer: function () {
       var surveyAnswer = buildSurveyAnswer(this.survey, this.reponse)
       SurveyDao.postSurveyAnswers(surveyAnswer)
-      // Hub.$emit('add-survey-answered', this.survey.id)
+
+      // Envoi de la réponse au server vertx
+      VertxEventBus.send('survey.submit', this.survey)
     }
   },
 

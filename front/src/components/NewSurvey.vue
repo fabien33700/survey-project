@@ -1,8 +1,8 @@
 <template>
 
-  <b-modal id="modal2" title="Créer un nouveau sondage" @ok="submit">
+  <b-modal id="modal2" title="Créer un nouveau sondage" @ok="submit" @shown="clear">
     <div class="new-modal">
-      <form @submit.stop.prevent="submit" >
+      <form >
 
           <b-form-fieldset
              label="Nom"
@@ -16,12 +16,6 @@
             :label-size="1"
             >
             <b-form-input v-model="survey.question" textarea :rows="2" placeholder="Votre question"></b-form-input>
-            <!-- <el-input
-              type="textarea"
-              :rows="2"
-              placeholder="Please input"
-              v-model="survey.question">
-            </el-input> -->
 
           </b-form-fieldset>
 
@@ -31,9 +25,9 @@
              :label-size="1"
              >
 
-             <div v-for="(prop, index) in survey.propositions" class="prop-span">
+             <div v-for="(prop, index) in survey.proposals" class="prop-span">
 
-                    <b-form-input v-model="survey.propositions[index]" class="prop"></b-form-input>
+                    <b-form-input v-model="survey.proposals[index]" class="prop" :value="prop"></b-form-input>
                     <el-button type="primary"size="mini" icon="minus" @click="removeProposition(index)" class="remove-prop"></el-button>
                 </br>
              </div>
@@ -51,7 +45,7 @@
               <div class="block">
                 <span>Du</span>
                 <el-date-picker
-                  v-model="survey.dateDebut"
+                  v-model="survey.dateStart"
                   type="date"
                   format="dd/MM/yyyy"
                   placeholder="Pick a day">
@@ -59,7 +53,7 @@
 
                 <span>au</span>
                 <el-date-picker
-                  v-model="survey.dateFin"
+                  v-model="survey.dateEnd"
                   type="date"
                   format="dd/MM/yyyy"
                   placeholder="Pick a day">
@@ -76,54 +70,71 @@
 
 <script>
 import SurveyDao from '@/services/surveys.js'
+import Hub from '@/events/EventBus.js'
+import VertxEventBus from '@/vertx/eventBus.js'
 import moment from 'moment'
+import _ from 'lodash'
+
+const surveyCreated = {
+  title: 'Success',
+  message: 'Nouveau sondage crée.',
+  type: 'success'
+}
+
+const surveyTmp = {
+  name: '',
+  question: '',
+  author: '',
+  proposals: ['', ''],
+  dateStart: '',
+  dateEnd: ''
+}
 
 export default {
-
   name: 'new-survey',
-
   data () {
     return {
-
-      survey: {
-        name: '',
-        question: '',
-        propositions: ['', ''],
-        author: {
-          id: 0
-        },
-        dateDebut: '',
-        dateFin: ''
-      }
-
+      survey: {}
     }
   },
 
   methods: {
     submit () {
-      this.survey.dateFin = formateDate(this.survey.dateFin)
-      this.survey.dateDebut = formateDate(this.survey.dateDebut)
-      console.log(this.survey)
+      this.survey.dateEnd = formatDate(this.survey.dateEnd)
+      this.survey.dateStart = formatDate(this.survey.dateStart)
+      // this.$notify(surveyCreated)
+      // Hub.$emit('survey-created', this.survey)
       SurveyDao.postNewSurvey(this.survey).then(function (response) {
-        alert('New Survey created')
+        this.$notify(surveyCreated)
+        Hub.$emit('survey-created', this.survey)
+        Hub.$emit('debug', 'Hello')
       }).catch(function (error) {
         console.log(error)
       })
+
+      // Envoi du sondage au server vertx
+      VertxEventBus.send('survey.create', this.survey)
     },
     addProposition () {
-      if (this.survey.propositions.length < 9) {
-        this.survey.propositions.push('')
+      if (this.survey.proposals.length < 9) {
+        this.survey.proposals.push('')
       }
     },
     removeProposition (idx) {
-      this.survey.propositions.splice(idx, 1)
+      this.survey.proposals.splice(idx, 1)
+    },
+
+    clear () {
+      console.log('into clear method')
+      this.survey = _.cloneDeep(surveyTmp)
     }
   }
 }
 
-function formateDate (date) {
+function formatDate (date) {
   return moment(date).format('DD/MM/YYYY')
 }
+
 </script>
 
 <style scoped>

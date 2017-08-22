@@ -13,33 +13,46 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import imie.survey.resources.AnswerResource;
-import imie.utils.modelmapper.annotations.Mapping;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import imie.survey.serialization.Views;
 
 @Entity
-@Table(name="answer")
-@Mapping(target = AnswerResource.class)
+@Table(name = "answer")
 public class Answer {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id_answer")
+	@JsonView(Views.Internal.class)
 	private Long id;
 	
 	@ManyToOne
+	@JsonView(Views.Answer.class)
 	private Survey survey;
 	
 	@ManyToOne
+	@JsonView(Views.Answer.class)
 	private User user;
 	
 	@JoinTable
 	@OneToMany
+	@JsonView(Views.Answer.class)
 	private List<Proposal> proposals;
 	
 	@Column(name="date_answer")
+	@JsonView(Views.Internal.class)
 	private LocalDate dateAnswer;
 	
 	public Answer() {}
+
+	public Answer(Long id, Survey survey, User user, List<Proposal> proposals, LocalDate dateAnswer) {
+		this.id = id;
+		this.survey = survey;
+		this.user = user;
+		this.proposals = proposals;
+		this.dateAnswer = dateAnswer;
+	}
 
 	public Long getId() {
 		return id;

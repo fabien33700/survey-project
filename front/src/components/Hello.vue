@@ -51,8 +51,8 @@
 
 <script>
 
-import SurveyDao from '../services/surveys.js'
-import SurveyItem from './SurveyItem'
+import SurveyDao from '@/services/surveys.js'
+import SurveyItem from '@/components/SurveyItem'
 import Isotope from 'vueisotope'
 
 export default {
@@ -77,7 +77,6 @@ export default {
             return el.id % 2 !== 0
           },
           filterByText: function (el) {
-            console.log(this.$parent)
             return el.name.toLowerCase().includes(this.$parent.search.toLowerCase()) ||
                    el.author.toLowerCase().includes(this.$parent.search.toLowerCase()) ||
                    el.question.toLowerCase().includes(this.$parent.search.toLowerCase())
@@ -115,7 +114,6 @@ export default {
   mounted () {
     SurveyDao.getAllSurveys()
       .then((response) => {
-        console.log('data : ', response.data)
         this.surveys = response.data
       }).catch(function (error) {
         console.log(error)

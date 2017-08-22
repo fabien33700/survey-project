@@ -1,9 +1,6 @@
 package imie.survey.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,28 +8,20 @@ import org.springframework.stereotype.Service;
 import imie.survey.dao.UserRepository;
 import imie.survey.data.User;
 import imie.survey.exceptions.errors.ResourceNotFoundException;
-import imie.survey.mapping.UserMapper;
-import imie.survey.resources.UserResource;
+import imie.survey.utils.ServiceUtils;
 
 @Service
 public class UserService {
 	
 	@Autowired
-	private UserMapper mapper;
+	private UserRepository repository;
 	
-	@Autowired
-	private UserRepository utilisateurRepository;
-	
-	public User getUtilisateurFromId(long id) throws ResourceNotFoundException {
-		return utilisateurRepository.findOne(id);
+	public User getUser(Long id) throws ResourceNotFoundException {
+		return repository.findOne(id);
 	}
 	
-	public List<UserResource> getAllUsers() {
-		Stream<User> users = StreamSupport.stream(
-				utilisateurRepository.findAll().spliterator(), false);
-		
-		return users.map(mapper::getDtoFromEntity)
-				.collect(Collectors.toList());
+	public List<User> getAllUsers() {
+		return ServiceUtils.iterableToList(repository.findAll());
 	}
 
 }

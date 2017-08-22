@@ -7,21 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import imie.survey.resources.UserResource;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import imie.survey.data.User;
+import imie.survey.serialization.Views;
 import imie.survey.services.UserService;
 
 @RestController
 @RequestMapping("api/users")
 public class UserController {
 	
-	//private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
-	
 	@Autowired
 	private UserService userService;
 	
-	
+	@JsonView(Views.User.class)
 	@RequestMapping(method = RequestMethod.GET)
-	public List<UserResource> getAllUsers() {		
+	public List<User> getAllUsers() {		
 		return userService.getAllUsers();
 	}
 }

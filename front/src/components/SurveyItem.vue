@@ -37,7 +37,6 @@ export default {
   methods: {
     open () {
       this.$root.$emit('show::modal', 'modal1')
-      // Hub.$emit('open-modal')
       Hub.$emit('set-modal-data', this.survey)
     }
   },

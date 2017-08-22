@@ -3,13 +3,11 @@ package imie.survey.resources;
 import java.util.List;
 
 import imie.survey.data.User;
-import imie.utils.modelmapper.annotations.Mapping;
 
 /**
  * Utilisateur DTO
  */
-@Mapping(target = User.class)
-public class UserResource {
+public class UserResource implements ResourceEntity<User>{
 	
 	private Long id;
 
@@ -17,11 +15,11 @@ public class UserResource {
 
 	private String hashPass;
 
-	private RoleResource role;
+	private Long role;
 
 	private Integer age;
 	
-	private List<SurveyResource> surveys;
+	private List<Long> surveys;
 
 	public UserResource() {}
 
@@ -49,14 +47,6 @@ public class UserResource {
 		this.hashPass = hashPass;
 	}
 
-	public RoleResource getRole() {
-		return role;
-	}
-
-	public void setRole(RoleResource role) {
-		this.role = role;
-	}
-
 	public Integer getAge() {
 		return age;
 	}
@@ -65,21 +55,19 @@ public class UserResource {
 		this.age = age;
 	}
 
-	public List<SurveyResource> getSurveys() {
+	public Long getRole() {
+		return role;
+	}
+
+	public void setRole(Long role) {
+		this.role = role;
+	}
+
+	public List<Long> getSurveys() {
 		return surveys;
 	}
 
-	public void setSurveys(List<SurveyResource> surveys) {
+	public void setSurveys(List<Long> surveys) {
 		this.surveys = surveys;
 	}
-
-	// TODO A supprimer!
-	@Override
-	public String toString() {
-		return "UserResource [id=" + id + ", pseudo=" + pseudo + ", hashPass=" + hashPass + ", role=" + role + ", age="
-				+ age + ", surveys=" + surveys + "]";
-	}
-	
-	
-
 }

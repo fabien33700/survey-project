@@ -6,23 +6,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import imie.survey.resources.RoleResource;
-import imie.utils.modelmapper.annotations.Mapping;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import imie.survey.serialization.Views;
 
 @Entity
 @Table(name = "role")
-@Mapping(target = RoleResource.class)
 public class Role {
 
 	@Id
 	@GeneratedValue
 	@Column(name = "id_role")
+	@JsonView(Views.Internal.class)
 	private Long id;
 	
 	@Column(name = "name")
+	@JsonView(Views.Internal.class)
 	private String name;
 
 	public Role() {}
+
+	public Role(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;

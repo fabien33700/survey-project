@@ -2,6 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>entities</artifactId>
+	<properties>
+		<!-- <org.mapstruct.version>1.1.0.Final</org.mapstruct.version> -->
+	</properties>
 	<parent>
 		<groupId>imie.survey-project</groupId>
 		<artifactId>Survey</artifactId>
@@ -9,14 +12,15 @@
 	</parent>
 	<dependencies>
 		<dependency>
-			<groupId>imie.utils</groupId>
-			<artifactId>ModelMapper</artifactId>
-			<version>0.1</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+		<!-- <dependency> <groupId>org.mariadb.jdbc</groupId> <artifactId>mariadb-java-client</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -30,5 +34,17 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+	<!-- <build> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-compiler-plugin</artifactId> <configuration> <source>1.8</source> 
+		<target>1.8</target> <annotationProcessorPaths> <path> <groupId>org.mapstruct</groupId> 
+		<artifactId>mapstruct-processor</artifactId> <version>${org.mapstruct.version}</version> 
+		</path> </annotationProcessorPaths> </configuration> </plugin> </plugins> 
+		</build> -->
 </project>

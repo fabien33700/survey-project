@@ -14,16 +14,23 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import locale from 'element-ui/lib/locale/lang/en'
 
+// Vue-Grid-Layout
+import VueGridLayout from 'vue-grid-layout'
+
 // Vue-awesome
 import 'vue-awesome/icons'
 
-import VeeValidate from 'vee-validate'
+// import VeeValidate from 'vee-validate'
 import Icon from 'vue-awesome/components/Icon'
+
+import Vuetable from 'vuetable-2'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
-Vue.use(VeeValidate)
+// Vue.use(VeeValidate)
+Vue.use(Vuetable)
+Vue.use(VueGridLayout)
 Vue.use(ElementUI, { locale })
 Vue.component('icon', Icon)
 

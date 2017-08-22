@@ -8,23 +8,26 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import imie.survey.resources.ProposalResource;
-import imie.utils.modelmapper.annotations.Mapping;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import imie.survey.serialization.Views;
 
 @Entity
 @Table(name="proposal")
-@Mapping(target = ProposalResource.class)
 public class Proposal {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id_proposal")
+	@JsonView(Views.Internal.class)
 	private Long id;
 	
 	@Column
+	@JsonView(Views.Internal.class)
 	private String value;
 	
 	@ManyToOne
+	@JsonView(Views.Proposal.class)
 	private Survey survey;
 
 	public String getValue() {
@@ -32,6 +35,12 @@ public class Proposal {
 	}
 	
 	public Proposal() {}
+
+	public Proposal(Long id, String value, Survey survey) {
+		this.id = id;
+		this.value = value;
+		this.survey = survey;
+	}
 
 	public void setValue(String value) {
 		this.value = value;

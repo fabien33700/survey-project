@@ -13,47 +13,69 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import imie.survey.resources.SurveyResource;
-import imie.utils.modelmapper.annotations.Convert;
-import imie.utils.modelmapper.annotations.Mapping;
-import imie.utils.modelmapper.converters.LocalDateISOToString;
+import org.hibernate.annotations.Cascade;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import imie.survey.converters.Converter;
+import imie.survey.converters.LocalDateConverter;
+import imie.survey.serialization.Views;
+
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
 
 /**
  * Sondage
  */
 @Entity
 @Table(name="survey")
-@Mapping(target = SurveyResource.class)
 public class Survey {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id_survey")
+	@JsonView(Views.Internal.class)
 	private Long id;
 	
 	@Column
+	@JsonView(Views.Internal.class)
 	private String name;
 	
-	@Convert(using = LocalDateISOToString.class)
 	@Column(name="date_start")
+	@JsonView(Views.Internal.class)
 	private LocalDate dateStart;
 	
-	@Convert(using = LocalDateISOToString.class)
 	@Column(name="date_end")
+	@JsonView(Views.Internal.class)
 	private LocalDate dateEnd;
 	
 	@ManyToOne
-	//@Ignore
+	@JsonView(Views.Survey.class)
 	private User author;
 	
 	@Column
+	@JsonView(Views.Internal.class)
 	private String question;
 	
-	@OneToMany(mappedBy="survey", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="survey", cascade = {PERSIST, REMOVE})
+	
+	@JsonView(Views.Survey.class)
 	private List<Proposal> proposals;
 
 	public Survey() {}
 	
+	public Survey(Long id, String name, LocalDate dateStart, LocalDate dateEnd, User author, String question,
+			List<Proposal> proposals) {
+		this.id = id;
+		this.name = name;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+		this.author = author;
+		this.question = question;
+		this.proposals = proposals;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -70,17 +92,18 @@ public class Survey {
 		this.proposals = proposals;
 	}
 
-	public LocalDate getDateStart() {
-		return dateStart;
+	@JsonGetter("dateStart")
+	public String getDateStart() {
+		return LocalDateConverter.getInstance().to(dateStart);
 	}
-
 
 	public void setDateStart(LocalDate dateStart) {
 		this.dateStart = dateStart;
 	}
 
-	public LocalDate getDateEnd() {
-		return dateEnd;
+	@JsonGetter("dateEnd")
+	public String getDateEnd() {
+		return LocalDateConverter.getInstance().to(dateEnd);
 	}
 
 	public void setDateEnd(LocalDate dateEnd) {

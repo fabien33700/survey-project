@@ -11,35 +11,50 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import imie.survey.resources.UserResource;
-import imie.utils.modelmapper.annotations.Mapping;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import imie.survey.serialization.Views;
 
 
 @Entity
 @Table(name = "user")
-@Mapping(target = UserResource.class)
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(Views.Internal.class)
 	private Long id;
 	
 	@Column(name = "pseudo")
+	@JsonView(Views.Internal.class)
 	private String pseudo;
 	
 	@Column(name = "hash_pass")
+	@JsonView(Views.Internal.class)
 	private String hashPass;
 	
 	@ManyToOne
+	@JsonView(Views.Internal.class)
 	private Role role;
 	
 	@Column(name = "age")
+	@JsonView(Views.Internal.class)
 	private Integer age;
 	
 	@OneToMany(mappedBy="author")
+	@JsonView(Views.User.class)
 	private List<Survey> surveys;
 
 	public User() {}
+
+	public User(Long id, String pseudo, String hashPass, Role role, Integer age, List<Survey> surveys) {
+		this.id = id;
+		this.pseudo = pseudo;
+		this.hashPass = hashPass;
+		this.role = role;
+		this.age = age;
+		this.surveys = surveys;
+	}
 
 	public Long getId() {
 		return id;

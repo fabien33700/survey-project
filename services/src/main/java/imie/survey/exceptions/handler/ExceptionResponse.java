@@ -48,4 +48,10 @@ public class ExceptionResponse<E extends Exception> {
 	public ResponseEntity<ExceptionResponse<E>> getResponseEntity() {
 		return new ResponseEntity<>(this, getStatus());
 	}
+	
+	@JsonIgnore
+	public ResponseEntity<ExceptionResponse<E>> getResponseEntity(HttpStatus status) {
+		this.status = Optional.of(status);
+		return new ResponseEntity<>(this, getStatus());
+	}
 }

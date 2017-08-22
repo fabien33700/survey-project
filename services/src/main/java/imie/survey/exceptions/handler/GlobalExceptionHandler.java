@@ -1,5 +1,8 @@
 package imie.survey.exceptions.handler;
 
+import javax.validation.ValidationException;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +19,13 @@ public class GlobalExceptionHandler {
 		handleWebServiceException(WebServiceException ex) 
 	{
 		return new ExceptionResponse<>(ex).getResponseEntity();
+	}
+	
+	@ExceptionHandler(ValidationException.class)
+	public ResponseEntity<ExceptionResponse<ValidationException>>
+		handleValidationException(ValidationException ex) {
+		return new ExceptionResponse<>(ex)
+				.getResponseEntity(HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(JwtException.class)

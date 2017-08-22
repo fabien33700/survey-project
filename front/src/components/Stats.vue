@@ -1,64 +1,106 @@
 <template>
 
-  <div class="admin-view">
-
-  <el-menu default-active="2" router="true" class="vertical-menu" @open="handleOpen" @close="handleClose">
-    <el-submenu index="1">
-      <template slot="title"><i class="el-icon-message"></i>Gérer les utilisateurs</template>
-      <el-menu-item-group title="Group One">
-        <el-menu-item index="1/users">Liste des utilisateurs</el-menu-item>
-        <!-- <el-menu-item index="1-2">item one</el-menu-item> -->
-      <!-- </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item> -->
-      </el-menu-item-group>
-      <!-- <el-submenu index="1-4">
-        <template slot="title">item four</template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-submenu> -->
-    </el-submenu>
-    <el-menu-item index="2"><i class="el-icon-menu"></i>Gérer les sondages</el-menu-item>
-    <el-menu-item index="3"><i class="el-icon-setting"></i>Navigator Three</el-menu-item>
-  </el-menu>
-
-  <router-view></router-view>
-
-</div>
+  <dashboard :content="dashboardContent"></dashboard>
 
 </template>
 
 <script>
 
-// import Vertx from '../services/vertx.js'
+import Dashboard from '@/components/dashboard/Dashboard'
+
+const kpis = [
+  {
+    id: 0,
+    type: 'kpi',
+    data: {
+      number: 50,
+      description: 'Nombre de participations'
+    },
+    height: 'small',
+    width: 'small'
+  },
+  {
+    id: 1,
+    type: 'kpi',
+    data: {
+      number: 10,
+      description: 'Nombre de sondages crées'
+    },
+    height: 'medium',
+    width: 'big'
+  },
+  {
+    id: 2,
+    type: 'kpi',
+    data: {
+      number: 100,
+      description: 'bla bla bla'
+    },
+    height: 'small',
+    width: 'medium'
+
+  },
+  {
+    id: 3,
+    type: 'kpi',
+    data: {
+      number: 500,
+      description: 'blfthfhh a bla bla'
+    },
+    height: 'medium',
+    width: 'big'
+  },
+  {
+    id: 3,
+    height: 'big',
+    width: 'big',
+    type: 'bar',
+    chartHeight: 0,
+    chartWidth: 0,
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      datasets: [
+        {
+          label: 'GitHub Commits',
+          backgroundColor: '#f87979',
+          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+        }
+      ]
+    }
+  },
+  {
+    height: 'big',
+    width: 'max',
+    type: 'table-answer',
+    data: {
+      surveyId: 1
+    }
+  },
+  {
+    height: 'big',
+    width: 'max',
+    type: 'table-survey',
+    data: {
+      user: {
+        id: 1,
+        pseudo: 'anne',
+        role: 'ADMIN'
+      }
+    }
+  }
+]
 
 export default {
-  name: 'Stats',
-  props: ['id'],
-
-  methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
+  name: 'stats',
+  components: { Dashboard },
+  data () {
+    return {
+      dashboardContent: kpis
     }
   }
 }
 
 </script>
 
-
-<style scoped>
-.vertical-menu {
-  width: 220px;
-  height: calc(100vh - 56px);
-}
-
-.container-fluid {
-  padding: 0 !important;
-}
-
-.admin-view {
-  display: flex;
-}
+<style>
 </style>
