@@ -2,7 +2,7 @@
 
   <b-card class="survey-item-detail"
       img="http://placeskull.com/200/200/4FC08D/-1/0">
-      {{ survey.question }}
+      {{ survey.question }} 
       <div v-for="item in survey.proposals">
         <b-form-checkbox :value=item >
           {{ item.value }}

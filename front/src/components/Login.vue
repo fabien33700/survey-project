@@ -1,6 +1,5 @@
 <template>
-    <b-modal id="modal3" title="Authentification" @ok="onSubmit"
-             @hidden="save"
+    <b-modal id="modal3" ref="modal3" title="Authentification" @ok="onSubmit"
              ok-title="Valider"
              :ok-only=options.okOnly
              :hide-header-close=options.hideHeaderClose
@@ -45,6 +44,7 @@
 
 <script>
 import authService from '@/services/auth'
+import Hub from '@/events/EventBus.js'
 
 export default {
   name: 'Login',
@@ -68,15 +68,20 @@ export default {
 
   methods: {
     onSubmit: function (e) {
-      authService.login(this.authentication).catch(() => {
+      authService.login(this.authentication)
+      .then(() => {
+        Hub.$emit('update-surveys')
+        this.$refs.modal3.hide()
+      })
+      .catch(() => {
         this.error = true
       })
     },
 
     save (e) {
-      if (!this.saved) {
-        return e.cancel()
-      }
+      e.cancel()
+      this.username = ''
+      this.password = ''
     },
 
     resetAlert: function () {

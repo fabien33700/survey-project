@@ -4,9 +4,9 @@
         class="mb-2"
         :title="survey.name"
         show-footer>
-        {{ survey.question }}
-        <div v-for="item in survey.propositions">
-          <b-form-checkbox v-model="reponse" :value=item >
+        {{ survey.question }} 
+        <div v-for="prop in survey.proposals">
+          <b-form-checkbox v-model="reponse" :value="prop">
             {{ item.value }}
           </b-form-checkbox>
        </div>

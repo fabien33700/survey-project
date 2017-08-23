@@ -65,7 +65,7 @@ var router = new Router({
   ]
 })
 
-// router.beforeEach(authService.navigationRedirecter())
+// router.beforeEach(authService.showLoginPage)
 
 router.afterEach(authService.showLoginPage)
 

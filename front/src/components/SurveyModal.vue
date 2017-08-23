@@ -3,11 +3,8 @@
     <b-card
           img="http://placeskull.com/200/200/4FC08D/-1/0">
           {{ survey.question }}
-          <div v-for="item in survey.propositions">
-            <b-form-checkbox v-model="reponse" :value=item >
-              {{ item.value }}
-            </b-form-checkbox>
-         </div>
+          <b-form-radio v-model="selection" :options="getOptions(survey.proposals)" stacked>
+          </b-form-radio>
       </b-card>
   </b-modal>
 </template>
@@ -28,7 +25,7 @@ export default {
         title: 'Répondre au sondage '
       },
       survey: {},
-      reponse: {}
+      selection: []
     }
   },
   // props: ['data']
@@ -41,8 +38,18 @@ export default {
       console.log('here')
     },
 
+    getOptions: function (array) {
+      if (!array) return []
+      return array.map((obj) => {
+        return {
+          value: obj.id,
+          text: obj.value
+        }
+      })
+    },
+
     postSurveyAnswer: function () {
-      var surveyAnswer = buildSurveyAnswer(this.survey, this.reponse)
+      var surveyAnswer = buildSurveyAnswer(this.survey, this.reponse, this.selection)
       SurveyDao.postSurveyAnswers(surveyAnswer)
 
       // Envoi de la réponse au server vertx
@@ -58,17 +65,12 @@ export default {
   }
 }
 
-function buildSurveyAnswer (survey, response) {
+function buildSurveyAnswer (survey, response, selection) {
   return {
-    sondage: {
-      id: survey.id
-    },
-    reponses: [
-      { id: response.id } ],
-    utilisateur: {
-      id: 1
-    },
-    dateReponse: moment().format('DD/MM/YYYY')
+    survey: survey.id,
+    proposals: [selection],
+    user: 'fabien',
+    dateAnswer: moment().format('DD/MM/YYYY')
   }
 }
 

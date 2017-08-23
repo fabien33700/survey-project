@@ -75,11 +75,11 @@ import VertxEventBus from '@/vertx/eventBus.js'
 import moment from 'moment'
 import _ from 'lodash'
 
-const surveyCreated = {
+/* const surveyCreated = {
   title: 'Success',
   message: 'Nouveau sondage crée.',
   type: 'success'
-}
+} */
 
 const surveyTmp = {
   name: '',
@@ -104,10 +104,10 @@ export default {
       this.survey.dateStart = formatDate(this.survey.dateStart)
       // this.$notify(surveyCreated)
       // Hub.$emit('survey-created', this.survey)
+      let self = this
       SurveyDao.postNewSurvey(this.survey).then(function (response) {
-        this.$notify(surveyCreated)
-        Hub.$emit('survey-created', this.survey)
-        Hub.$emit('debug', 'Hello')
+        self.survey.id = response.data.id
+        Hub.$emit('survey-created', self.survey)
       }).catch(function (error) {
         console.log(error)
       })

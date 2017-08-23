@@ -3,13 +3,6 @@
 
     <!-- Nav Bar  -->
     <div class="filter-bar">
-      <!-- <b-button-toolbar>
-        <b-button-group>
-          <b-button>Left</b-button>
-          <b-button>Middle</b-button>
-          <b-button>Right</b-button>
-        </b-button-group>
-      </b-button-toolbar> -->
       <el-button type="primary" v-b-modal.modal2>Créer un sondage</el-button>
         <el-input
           placeholder="Search..."
@@ -19,14 +12,6 @@
           v-model="search" >
         </el-input>
   </div>
-    <!-- <b-navbar toggleable variant="secondary" class="no-margin">
-      <b-nav-toggle target="nav_collapse"></b-nav-toggle>
-      <b-button variant="primary" v-b-modal.modal2>
-        <span>Créer un sondage</span>
-      </b-button>
-      <b-collapse is-nav id="nav_collapse">
-    </b-collapse>
-  </b-navbar> -->
 
   <isotope ref="cpt" :options='option' :list="surveys" @filter="filterOption=arguments[0]" @sort="sortOption=arguments[0]"
            :item-selector="'element-item'" @layout="currentLayout=arguments[0]"
@@ -36,16 +21,6 @@
       </div>
   </isotope>
 
-    <!-- <div class="row">
-      <div v-for="(item, index) in surveys" class="col-4">
-        <survey-item :survey="item" ></survey-item>
-      </div>
-   </div> -->
-
-   <!-- <b-button variant="primary" class="rounded-circle fab-button" v-b-modal.modal2>
-     <icon name="plus" scale="2" label="Créer un sondage"></icon>
-   </b-button> -->
-
  </div>
 </template>
 
@@ -54,6 +29,7 @@
 import SurveyDao from '@/services/surveys.js'
 import SurveyItem from '@/components/SurveyItem'
 import Isotope from 'vueisotope'
+import Hub from '@/events/EventBus.js'
 
 export default {
   name: 'hello',
@@ -91,17 +67,17 @@ export default {
   },
 
   methods: {
-    // sort: function(key) {
-    // this.$refs.cpt.sort(key)
-    // },
-    // filter: function(key) {
-    // this.$refs.cpt.filter(key)
-    // },
-    // changeLayout: function(key) {
-    // this.$refs.cpt.layout(key)
-    // },
     filter: function (key) {
       this.$refs.cpt.filter(key)
+    },
+
+    update: function () {
+      SurveyDao.getAllSurveys()
+        .then((response) => {
+          this.surveys = response.data
+        }).catch(function (error) {
+          console.log(error)
+        })
     }
   },
 
@@ -112,12 +88,14 @@ export default {
   },
 
   mounted () {
-    SurveyDao.getAllSurveys()
-      .then((response) => {
-        this.surveys = response.data
-      }).catch(function (error) {
-        console.log(error)
-      })
+    this.update()
+  },
+
+  created () {
+    Hub.$on('update-surveys', () => this.update())
+    Hub.$on('survey-created', (surv) => {
+      this.surveys.push(surv)
+    })
   }
 }
 
