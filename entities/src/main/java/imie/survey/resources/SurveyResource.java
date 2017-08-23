@@ -106,7 +106,7 @@ public class SurveyResource implements ResourceEntity<Survey> {
 		if (converter.from(dateEnd)
 				.isBefore(converter.from(dateStart))) {
 			throw new ValidationException("La date de fin ne peut être inférieure à la date de début.");
-		}
+		}	
 	}
 
 }

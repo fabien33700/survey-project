@@ -25,6 +25,9 @@ public class TokenAuthenticationService {
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
 		res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+		
+		// Cette ligne permet d'exposer le header 'Authorization' même avec le CORS
+		res.addHeader("Access-Control-Expose-Headers", "Authorization");
 	}
 
 	static Authentication getAuthentication(HttpServletRequest request) {

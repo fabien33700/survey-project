@@ -1,9 +1,11 @@
 package imie.survey.data;
 
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
+
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,17 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import imie.survey.converters.Converter;
 import imie.survey.converters.LocalDateConverter;
 import imie.survey.serialization.Views;
-
-import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.CascadeType.REMOVE;
 
 /**
  * Sondage
@@ -35,7 +31,7 @@ public class Survey {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id_survey")
-	@JsonView(Views.Internal.class)
+	@JsonView({Views.Internal.class, Views.Id.class})
 	private Long id;
 	
 	@Column

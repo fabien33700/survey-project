@@ -24,7 +24,7 @@ public class Answer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id_answer")
-	@JsonView(Views.Internal.class)
+	@JsonView({Views.Internal.class, Views.Id.class})
 	private Long id;
 	
 	@ManyToOne

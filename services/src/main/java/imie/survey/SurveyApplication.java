@@ -6,9 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import imie.survey.security.ApplicationSecurity;
 
@@ -17,16 +14,22 @@ import imie.survey.security.ApplicationSecurity;
 @ComponentScan
 @EnableAutoConfiguration
 public class SurveyApplication {
-	
-	@Bean
+
+	/**
+	 * TODO A verifier
+	 * @return
+	 */
+	/*@Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
+        	final static String DEVSERVER_URI = "http://localhost:9000";
+        	
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**").allowedOrigins("http://localhost:9000");
+                registry.addMapping("/api/**")  .allowedOrigins(DEVSERVER_URI);
             }
         };
-    }
+    }*/
 	
 	@Bean
 	public WebSecurityConfigurerAdapter webSecurityConfigurationAdapter() {

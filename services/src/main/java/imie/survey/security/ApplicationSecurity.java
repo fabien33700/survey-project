@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import imie.survey.security.jwt.JWTAuthenticationFilter;
 import imie.survey.security.jwt.JWTLoginFilter;
@@ -26,6 +29,9 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		} else {
 			http.csrf()
 				.disable()
+				.cors()
+				.configurationSource(corsConfigurationSource())
+				.and()
 				.authorizeRequests()
 			    .antMatchers("/").permitAll()
 			    .antMatchers("/static/**").permitAll()
@@ -39,6 +45,12 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 			            UsernamePasswordAuthenticationFilter.class);
 		}
 	}
+	
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        	source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

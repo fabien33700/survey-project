@@ -60,6 +60,14 @@ public class SurveyService {
 		rpSurvey.deleteAll();
 	}
 	
+	public Survey createSurvey(SurveyResource resource) 
+	{
+		resource.validate();
+		Survey survey = fromResource(resource);
+		
+		return rpSurvey.save(survey);
+	}
+
 	private Survey fromResource(SurveyResource resource) {
 		Survey entity = (Objects.nonNull(resource.getId())) ?
 				rpSurvey.findOne(resource.getId()) : new Survey();
@@ -79,13 +87,5 @@ public class SurveyService {
 		);
 		
 		return entity;
-	}
-
-	public Long createSurvey(SurveyResource resource) 
-	{
-		resource.validate();
-		Survey survey = fromResource(resource);
-		
-		return rpSurvey.save(survey).getId();
 	}
 }
